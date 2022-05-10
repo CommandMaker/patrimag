@@ -1,8 +1,118 @@
 header.app-header {
-    box-shadow: 0 1px 4px 3px rgba(0, 0, 0, .25);
+    width: 100%;
+    height: var(--header-height);
+
+    display: flex;
+    justify-content: center;
 }
 
-header.app-header nav.app-navbar {
-    width: 95%;
-    margin: 0 auto;
+// Navbar style
+//================
+header.app-header nav.app-header__navbar {
+    width: 90%;
+    max-width: 1200px;
+    height: var(--header-height);
+
+    position: relative;
+
+    display: flex;
+    align-items: center;
+    gap: 20px;
+
+
+    // Bottom border style
+    //================
+    &::after {
+        content: '';
+        display: block;
+        height: 2px;
+
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: -5px;
+
+        background: var(--primary-color);
+    }
+}
+
+header.app-header nav.app-header__navbar div.app-header__links-container {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+
+    height: calc(var(--header-height) + 5px);
+
+    overflow-x: auto;
+    overflow-y: hidden;
+}
+
+// Links container scrollbar style
+//================
+header.app-header nav.app-header__navbar div.app-header__links-container::-webkit-scrollbar {
+    background: transparent;
+    height: 3px;
+}
+
+header.app-header nav.app-header__navbar div.app-header__links-container::-webkit-scrollbar-thumb {
+    background: var(--primary-color);
+    border-radius: 4px;
+}
+
+// Image title style
+//================
+
+header.app-header nav.app-header__navbar a.app-header__title-link {
+    display: flex;
+    height: var(--header-height);
+
+    align-items: center;
+
+    flex-shrink: 0;
+}
+
+header.app-header nav.app-header__navbar a.app-header__title-link img {
+    height: var(--header-height);
+}
+
+// Links style
+//================
+header.app-header nav.app-header__navbar a.app-header__link {
+    display: block;
+    height: var(--header-height);
+    line-height: var(--header-height);
+
+    white-space: nowrap;
+    color: var(--primary-text-color);
+
+    position: relative;
+
+    // Links hover style
+    //================
+    &::before {
+        content: '';
+        display: block;
+        height: 2px;
+
+        position: absolute;
+        left: 50%;
+        right: 50%;
+        bottom: -3px;
+
+        @extend .link-underline-animation;
+    }
+
+    &:hover::before {
+        left: 0;
+        right: 0;
+    }
+}
+
+// Image title size style
+//================
+@media screen and (max-width: 440px) {
+    header.app-header nav.app-header__navbar a.app-header__title-link img {
+        width: 45vw;
+        height: auto;
+    }
 }
