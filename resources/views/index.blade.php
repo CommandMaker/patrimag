@@ -1,6 +1,6 @@
 @extends('templates.base')
 
-@section('title', 'Hello World')
+@section('title', 'Accueil')
 
 @section('body')
     <div class="notification mt-4 has-text-centered py-6">

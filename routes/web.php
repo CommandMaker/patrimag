@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\IndexController;
 use App\Http\Controllers\LocaleSwitcherController;
 use Illuminate\Support\Facades\Route;
@@ -16,3 +17,5 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [IndexController::class, 'index'])->name('index.index');
+
+Route::get('/articles', [ArticleController::class, 'showAll'])->name('article.show-all');
