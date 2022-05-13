@@ -1,10 +1,6 @@
 $rowHeight: 340px;
 $defaultImgHeight: 200px;
 
-body {
-    height: 300vh;
-}
-
 div.home-grid-view-container {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -31,7 +27,7 @@ div.home-grid-view-container div.home-grid-view-item:first-child {
 }
 
 div.home-grid-view-container div.home-grid-view-item:first-child img {
-    height: calc(2 * $defaultImgHeight);
+    height: calc(#{$defaultImgHeight} * 2);
 }
 
 div.home-grid-view-container div.home-grid-view-item img {
