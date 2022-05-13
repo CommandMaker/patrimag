@@ -18,6 +18,7 @@ class ArticleFactory extends Factory
     {
         return [
             'title' => $this->faker->sentence($this->faker->numberBetween(5, 15)),
+            'image' => 'https://picsum.photos/1920/1080?random=12965',
             'content' => $this->faker->sentences($this->faker->numberBetween(5, 50), true),
             'author' => $this->faker->userName(),
             'likes' => 0,

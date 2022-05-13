@@ -1,0 +1,75 @@
+// Pagination style (author: Command_maker)
+//================
+
+// Root pagination element style
+//================
+nav.pagination-links-container {
+    display: flex;
+    justify-content: center;
+}
+
+// Links list style
+//================
+nav.pagination-links-container ul.pagination-list {
+    display: flex;
+
+    gap: 10px;
+}
+
+// Link container style
+//================
+nav.pagination-links-container ul.pagination-list li.pagination-link {
+    width: 2.5rem;
+    height: 2.5rem;
+
+    border: 1px solid #e4e4e4;
+    border-radius: 6px;
+
+    transition: background .2s ease-in-out;
+
+    &:hover {
+        background: var(--primary-color);
+    }
+
+    &:hover a,
+    &:hover span {
+        color: var(--contrast-text-color);
+        font-weight: 500;
+    }
+}
+
+// Active link style
+//================
+nav.pagination-links-container ul.pagination-list li.pagination-link.active {
+    background: var(--primary-color);
+
+    & span {
+        color: var(--contrast-text-color);
+        font-weight: 500;
+    }
+}
+
+// Current page text style
+//================
+nav.pagination-links-container ul.pagination-list li.pagination-link span {
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+// Link style
+//================
+nav.pagination-links-container ul.pagination-list li.pagination-link a {
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    color: var(--text-color);
+    transition: .2s ease-in-out;
+}
