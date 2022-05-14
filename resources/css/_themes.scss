@@ -1,27 +1,29 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&display=swap');
 
 :root {
-  // Colors
-  //================
-  --primary-color: #f9ce05;
-  --primary-text-color: #000;
-  --contrast-text-color: #fff;
+    // Colors
+    //================
+    --primary-color: #f9ce05;
+    --primary-text-color: #000;
+    --contrast-text-color: #fff;
 
-  // Texts
-  //================
-  --font-size: 16px;
-  --primary-font-family: 'Montserrat', sans-serif;
+    --borders-color: #e4e4e4;
 
-  // Header
-  //================
-  --header-height: 60px;
+    // Texts
+    //================
+    --font-size: 16px;
+    --primary-font-family: 'Montserrat', sans-serif;
+
+    // Header
+    //================
+    --header-height: 60px;
 }
 
 // Link underline animation style
 //================
 .link-underline-animation {
-  background: var(--primary-color);
+    background: var(--primary-color);
 
-  transition: left .3s ease-in-out,
-              right .3s ease-in-out;
+    transition: left .3s ease-in-out,
+    right .3s ease-in-out;
 }

@@ -1,0 +1,63 @@
+// Container table style
+//===============
+.articles-table-view {
+    width: 100%;
+
+    margin: 1.5rem 0;
+}
+
+// Each article in the tab
+//===============
+.articles-table-view article.article {
+    position: relative;
+
+    border: 1px solid var(--borders-color);
+    border-left: none;
+    border-right: none;
+
+    max-height: 300px;
+
+    display: flex;
+    gap: 25px;
+
+    padding: 20px 0;
+}
+
+// Article title style
+//================
+.articles-table-view article.article p.article-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+
+    margin-bottom: 0.4rem;
+    margin-right: 0.5rem;
+}
+
+// Article image style
+//================
+.articles-table-view article.article img.article-img {
+    height: 190px;
+
+    border-radius: 10px;
+    object-fit: cover;
+}
+
+// Responsive view style
+//================
+@media screen and (max-width: 1180px) {
+    .articles-table-view article.article p.article-description {
+        height: calc(8 * 1.5em);
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+}
+
+@media screen and (max-width: 670px) {
+    .articles-table-view article.article {
+        flex-direction: column-reverse;
+    }
+
+    .articles-table-view article.article p.article-description {
+        display: none;
+    }
+}
