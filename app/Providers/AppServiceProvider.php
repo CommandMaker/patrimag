@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use Cocur\Slugify\Slugify;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\ServiceProvider;
 
@@ -25,5 +26,7 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         Paginator::defaultView('templates.pagination');
+
+        $this->app->bind(Slugify::class, Slugify::class);
     }
 }
