@@ -2,8 +2,8 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**
  * @property integer $id
@@ -29,5 +29,6 @@ class Article extends Model
     /**
      * @var array
      */
-    protected $fillable = ['title', 'image', 'content', 'author', 'likes', 'dislikes', 'created_at', 'updated_at'];
+    protected $fillable = ['title', 'slug', 'image', 'content', 'author', 'likes', 'dislikes', 'created_at', 'updated_at'];
+
 }
