@@ -19,3 +19,4 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [IndexController::class, 'index'])->name('index.index');
 
 Route::get('/articles', [ArticleController::class, 'showAll'])->name('article.show-all');
+Route::get('/article/{id}/{slug}', [ArticleController::class, 'showOne'])->whereNumber('id')->name('article.show-one');

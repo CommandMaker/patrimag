@@ -12,7 +12,7 @@ header.app-header {
 //================
 header.app-header nav.app-header__navbar {
     width: 90%;
-    max-width: 1200px;
+    max-width: var(--max-content-width);
     height: var(--header-height);
 
     position: relative;
