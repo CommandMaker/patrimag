@@ -1,17 +1,75 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
 body, html {
     margin: 0;
     padding: 0;
 
     font-size: var(--font-size);
     font-family: var(--primary-font-family);
+
+    color: var(--primary-text-color);
+}
+
+// Links reset style
+//================
+a {
+    color: var(--primary-text-color);
+    text-decoration: none;
+
+    position: relative;
+
+    &::before {
+        content: '';
+        display: block;
+        height: 1px;
+        
+        background: var(--primary-color);
+
+        position: absolute;
+        left: 50%;
+        right: 50%;
+        bottom: 0;
+        transition: left .3s ease-in-out,
+                    right .3s ease-in-out;
+    }
+
+    &:hover::before {
+        left: 0;
+        right: 0;
+    }
 }
 
 hr {
-    width: 90%;
+    width: var(--responsive-content-size);
     max-width: var(--max-content-width);
     height: 2px;
     margin: 2rem auto;
 
     background: var(--borders-color);
     border: none;
+}
+
+$titles-color: h1, h2, h3, h4, h5, h6, strong, b;
+
+#{$titles-color} {
+    color: var(--primary-title-color);
+}
+
+$titles: h1, h2, h3, h4, h5, h6;
+
+#{$titles} {
+    margin: 2rem 0;
+}
+
+h1 {
+    font-size: 2.5rem;
+}
+
+.link-without-animation {
+    &::before {
+        content: none;
+    }
 }

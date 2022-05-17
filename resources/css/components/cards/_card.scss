@@ -2,6 +2,9 @@
     display: flex;
     flex-direction: column;
     height: fit-content;
+
+    text-decoration: none;
+    color: var(--primary-text-color);
 }
 
 .card img.card-img {
@@ -13,7 +16,9 @@
 }
 
 .card .card-title {
-    margin: 0.2em 0;
+    margin: 0.4em 0;
     font-size: 1.5rem;
     font-weight: bold;
+
+    color: var(--primary-title-color);
 }

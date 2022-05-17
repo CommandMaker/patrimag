@@ -12,7 +12,7 @@ class IndexController extends Controller
     {
         /** @var Article[] $articles */
         $articles = Article::limit(6)
-            ->orderBy('created_at')
+            ->orderByDesc('created_at')
             ->get();
 
         return view('index', [

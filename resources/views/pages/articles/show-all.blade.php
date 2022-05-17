@@ -12,7 +12,7 @@
             @foreach ($articles as $article)
                 <a href="{{ route('article.show-one', ['id' => $article->id, 'slug' => $article->slug]) }}" class="article-row">
                     <div class="article-content">
-                        <p class="article-title">{{ Str::limit($article->title, 100) }}</p>
+                        <p class="article-title">{{ $article->title }}</p>
 
                         <p class="article-description">{{ Str::limit($article->content, 700) }}</p>
                     </div>

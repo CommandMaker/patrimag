@@ -14,6 +14,7 @@ nav.pagination-links-container ul.pagination-list {
     display: flex;
 
     gap: 10px;
+    list-style-type: none;
 }
 
 // Link container style
@@ -71,5 +72,7 @@ nav.pagination-links-container ul.pagination-list li.pagination-link a {
     align-items: center;
 
     color: var(--text-color);
+    text-decoration: none;
+
     transition: .2s ease-in-out;
 }

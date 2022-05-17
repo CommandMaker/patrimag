@@ -11,7 +11,7 @@ header.app-header {
 // Navbar style
 //================
 header.app-header nav.app-header__navbar {
-    width: 90%;
+    width: var(--responsive-content-size);
     max-width: var(--max-content-width);
     height: var(--header-height);
 
@@ -63,7 +63,6 @@ header.app-header nav.app-header__navbar div.app-header__links-container::-webki
 
 // Image title style
 //================
-
 header.app-header nav.app-header__navbar a.app-header__title-link {
     display: flex;
     height: var(--header-height);
@@ -71,6 +70,8 @@ header.app-header nav.app-header__navbar a.app-header__title-link {
     align-items: center;
 
     flex-shrink: 0;
+
+    @extend .link-without-animation;
 }
 
 header.app-header nav.app-header__navbar a.app-header__title-link img {
@@ -86,6 +87,7 @@ header.app-header nav.app-header__navbar a.app-header__link {
 
     white-space: nowrap;
     color: var(--primary-text-color);
+    text-decoration: none;
 
     position: relative;
 

@@ -21,6 +21,8 @@
     gap: 25px;
 
     padding: 20px 0;
+
+    @extend .link-without-animation;
 }
 
 // Article title style
@@ -29,8 +31,15 @@
     font-size: 1.5rem;
     font-weight: bold;
 
-    margin-bottom: 0.4rem;
+    margin-bottom: 0.7rem;
     margin-right: 0.5rem;
+
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    line-clamp: 3;
+
+    overflow: hidden;
 }
 
 // Article image style
@@ -52,9 +61,18 @@
     }
 }
 
+// Mobile style
+//================
 @media screen and (max-width: 670px) {
     .articles-table-view .article-row {
         flex-direction: column-reverse;
+
+        max-height: none;
+    }
+
+    .articles-table-view .article-title {
+        -webkit-line-clamp: 2;
+        line-clamp: 2;
     }
 
     .articles-table-view .article-row p.article-description {
