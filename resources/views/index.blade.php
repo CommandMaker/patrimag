@@ -3,13 +3,9 @@
 @section('title', 'Accueil')
 
 @section('body')
-    <div class="notification mt-4 has-text-centered py-6">
-        <div class="container">
-            <h1 class="title is-1">Les articles à la une</h1>
-        </div>
-    </div>
-
     <div class="container">
+        <h1 class="title is-1">Les articles à la une</h1>
+
         <div @if (count($articles)) class="home-grid-view-container" @endif>
             @forelse ($articles as $article)
             <a href="{{ route('article.show-one', ['id' => $article->id, 'slug' => $article->slug]) }}" class="card home-grid-view-item" role="article">

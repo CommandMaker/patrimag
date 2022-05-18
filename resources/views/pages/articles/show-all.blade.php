@@ -4,7 +4,7 @@
 
 @section('body')
     <div class="container">
-        <h1 class="title is-1">Nos articles</h1>
+        <h1>Nos articles</h1>
 
         {{ $articles->links() }}
 
