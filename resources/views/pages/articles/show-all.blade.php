@@ -14,7 +14,7 @@
                     <div class="article-content">
                         <p class="article-title">{{ $article->title }}</p>
 
-                        <p class="article-description">{{ Str::limit($article->content, 700) }}</p>
+                        <p class="article-description">{{ Str::limit($article->description, 700) }}</p>
                     </div>
                     <img src="{{ $article->image }}" alt="{{ $article->title }}" title="{{ $article->title }}" class="article-img">
                 </a>

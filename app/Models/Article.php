@@ -8,6 +8,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 /**
  * @property integer $id
  * @property string $title
+ * @property string $slug
+ * @property string $description
  * @property string $content
  * @property string $author
  * @property integer $likes
@@ -29,6 +31,6 @@ class Article extends Model
     /**
      * @var array
      */
-    protected $fillable = ['title', 'slug', 'image', 'content', 'author', 'likes', 'dislikes', 'created_at', 'updated_at'];
+    protected $fillable = ['title', 'slug', 'description', 'image', 'content', 'author', 'likes', 'dislikes', 'created_at', 'updated_at'];
 
 }

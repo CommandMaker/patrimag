@@ -16,7 +16,7 @@
                 <img src="{{ $article->image }}" alt="{{ $article->title }}" class="card-img">
                 <div class="card-body">
                     <p class="card-title">{{ Str::limit($article->title, 50) }}</p>
-                    <p class="card-description">{{ Str::limit($article->content, 68) }}</p>
+                    <p class="card-description">{{ Str::limit($article->description, 68) }}</p>
                 </div>
             </a>
             @empty
