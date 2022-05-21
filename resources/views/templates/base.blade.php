@@ -12,5 +12,7 @@
         @yield('header', view('components.header._header'))
         @yield('body')
         @yield('footer', view('components.footer._footer'))
+
+        <script src="/js/app.js"></script>
     </body>
 </html>

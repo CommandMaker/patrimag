@@ -11,6 +11,14 @@ body, html {
     font-family: var(--primary-font-family);
 
     color: var(--primary-text-color);
+
+    height: 100%;
+}
+
+// Input reset style
+//================
+input {
+    color: var(--primary-text-color);
 }
 
 // Links reset style

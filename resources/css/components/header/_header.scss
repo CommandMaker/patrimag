@@ -1,3 +1,5 @@
+$links-gap: 20px;
+
 header.app-header {
     width: 100%;
     height: var(--header-height);
@@ -19,7 +21,7 @@ header.app-header nav.app-header__navbar {
 
     display: flex;
     align-items: center;
-    gap: 20px;
+    gap: $links-gap;
 
 
     // Bottom border style
@@ -38,15 +40,21 @@ header.app-header nav.app-header__navbar {
     }
 }
 
+header.app-header nav.app-header__navbar div.app-header__content {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+
+    overflow-x: auto;
+    overflow-y: hidden;
+}
+
 header.app-header nav.app-header__navbar div.app-header__links-container {
     display: flex;
     align-items: center;
     gap: 20px;
 
     height: calc(var(--header-height) + 5px);
-
-    overflow-x: auto;
-    overflow-y: hidden;
 }
 
 // Links container scrollbar style
@@ -112,9 +120,46 @@ header.app-header nav.app-header__navbar a.app-header__link {
     }
 }
 
+// Security links style
+//================
+header.app-header nav.app-header__navbar div.app-header__security-links {
+    //display: flex;
+    //align-items: center;
+    //
+    //height: calc(var(--header-height) + 5px);
+    //
+    //gap: $links-gap;
+
+    @extend .app-header__links-container;
+}
+
+header.app-header nav.app-header__navbar div.app-header__security-links a:first-child::after {
+    content: '';
+    display: block;
+
+    position: absolute;
+    right: -10px;
+    top: 35%;
+    bottom: 35%;
+
+    background: var(--borders-color);
+    width: 1px;
+}
+
+// Icons link style
+//================
+header.app-header nav.app-header__navbar a.app-header__link.icon i {
+    font-size: 1.2rem;
+}
+
 // Image title size style
 //================
 @media screen and (max-width: 440px) {
+
+    header.app-header nav.app-header__navbar .app-header__content {
+        gap: $links-gap;
+    }
+
     header.app-header nav.app-header__navbar a.app-header__title-link img {
         width: 45vw;
         height: auto;
