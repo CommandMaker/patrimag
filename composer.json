@@ -6,6 +6,7 @@
     "license": "MIT",
     "require": {
         "php": "^8.0.2",
+        "anhskohbo/no-captcha": "^3.4",
         "cocur/slugify": "^4.1",
         "erusev/parsedown": "^1.7",
         "guzzlehttp/guzzle": "^7.2",

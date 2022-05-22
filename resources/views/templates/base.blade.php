@@ -7,6 +7,7 @@
         <title>@yield('title') - PatriMag</title>
 
         <link rel="stylesheet" href="/css/app.css">
+        {!! NoCaptcha::renderJs() !!}
     </head>
     <body>
         @yield('header', view('components.header._header'))

@@ -1,0 +1,26 @@
+// Notification style
+//================
+
+.notification {
+    width: 100%;
+    padding: 1.5rem 1rem;
+
+    border-radius: 10px;
+
+    background: var(--borders-color);
+    color: var(--primary-text-color);
+
+    vertical-align: middle;
+
+    &.is-success {
+        --borders-color: rgb(var(--success-color));
+        --primary-text-color: var(--contrast-text-color);
+        font-weight: 500;
+    }
+
+    &.is-danger {
+        --borders-color: rgb(var(--danger-color));
+        --primary-text-color: var(--contrast-text-color);
+        font-weight: 500;
+    }
+}

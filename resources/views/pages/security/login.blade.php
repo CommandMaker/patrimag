@@ -7,6 +7,12 @@
         <div class="form-centered-card">
             <h1 style="margin-bottom: .5rem;">Se connecter</h1>
 
+            @error('authentication-error')
+                <div class="notification is-danger">
+                    {{ $message }}
+                </div>
+            @enderror
+
             <form action="{{ route('security.login') }}" method="POST">
                 @csrf
 
@@ -15,7 +21,7 @@
 
                     <div class="control">
                         <i class="icon-left ri-mail-line"></i>
-                        <input type="email" class="input" name="_email" id="email" required placeholder="Adresse email">
+                        <input type="email" class="input" name="_email" id="email" value="{{ old('_email') }}" required placeholder="Adresse email">
                     </div>
                     @error('_email')
                     <p class="help-text is-danger">{{ $message }}</p>
@@ -33,6 +39,7 @@
                     <p class="help-text is-danger">{{ $message }}</p>
                     @enderror
                 </div>
+
                 <button type="submit" class="button full-width">Se connecter</button>
             </form>
         </div>

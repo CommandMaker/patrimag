@@ -62,7 +62,24 @@ form {
 //================
 .field .control .icon-left {
     margin-left: 10px;
-    color: #c4c4c4;
+    color: var(--icons-color);
+}
+
+// Help text style
+//================
+.field .help-text {
+    font-size: .8rem;
+    margin-top: .4rem;
+
+    color: var(--icons-color);
+
+    &.is-danger {
+        --icons-color: rgb(var(--danger-color));
+    }
+
+    &.is-success {
+        --icons-color: rgb(var(--success-color));
+    }
 }
 
 .button {

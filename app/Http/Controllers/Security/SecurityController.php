@@ -26,7 +26,12 @@ class SecurityController extends Controller
             '_username' => 'required|max:255|min:8|unique:users,name',
             '_email' => 'required|email|max:255|unique:users,email',
             '_password' => 'required|max:255|min:8',
-            '_confirm-password' => 'required|max:255|min:8|same:_password'
+            '_confirm-password' => 'required|max:255|min:8|same:_password',
+            'g-recaptcha-response' => 'required|captcha'
+        ], [
+            '_username.unique' => 'Ce nom d\'utilisateur est déjà pris !',
+            '_email.unique' => 'Cet adresse email est déjà prise !',
+            '_confirm-password.same' => 'Vos mots de passes ne correspondent pas !'
         ]);
 
         $user = User::create([
@@ -81,8 +86,8 @@ class SecurityController extends Controller
         }
 
         return back()->withErrors([
-            '_email' => 'Vos identifiants sont invalides',
-        ])->onlyInput('_email');
+            'authentication-error' => 'Vos identifiants sont invalides',
+        ])->withInput($request->only('_email'));
     }
 
     public function logout (Request $request)
@@ -97,7 +102,7 @@ class SecurityController extends Controller
 
     public function profilePage ()
     {
-
+        return view('pages.security.profile');
     }
 
     public static function generateActivationToken (string $email): string
