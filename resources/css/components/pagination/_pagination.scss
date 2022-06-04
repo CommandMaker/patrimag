@@ -75,4 +75,6 @@ nav.pagination-links-container ul.pagination-list li.pagination-link a {
     text-decoration: none;
 
     transition: .2s ease-in-out;
+
+    @extend .link-without-animation;
 }

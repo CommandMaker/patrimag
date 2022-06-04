@@ -1,5 +1,9 @@
 $flex-direction-values: row, row-reverse, column, column-reverse;
 
+.is-flex {
+  display: flex;
+}
+
 @each $value in $flex-direction-values {
   .is-flex-direction-#{$value} {
     flex-direction: $value;

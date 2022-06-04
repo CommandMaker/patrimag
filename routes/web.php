@@ -2,8 +2,8 @@
 
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\IndexController;
-use App\Http\Controllers\LocaleSwitcherController;
 use App\Http\Controllers\Security\SecurityController;
+use App\Http\Middleware\NotAuthenticated;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -24,13 +24,19 @@ Route::get('/articles', [ArticleController::class, 'showAll'])->name('article.sh
 Route::get('/article/{id}/{slug}', [ArticleController::class, 'showOne'])->whereNumber('id')->name('article.show-one');
 
 /* Security */
-Route::get('/inscription', [SecurityController::class, 'registerView'])->name('security.register-view');
-Route::post('/inscription', [SecurityController::class, 'register'])->name('security.register');
+Route::middleware('guest')->group(function () {
+    Route::get('/inscription', [SecurityController::class, 'registerView'])->name('security.register-view');
+    Route::post('/inscription', [SecurityController::class, 'register'])->name('security.register');
+
+    Route::get('/connexion', [SecurityController::class, 'loginView'])->name('security.login-view');
+    Route::post('/connexion', [SecurityController::class, 'login'])->name('security.login');
+});
+
+Route::get('/mot-de-passe-perdu', [SecurityController::class, 'resetPasswordView'])->name('security.password-reset-view');
+Route::post('/reset-password', [SecurityController::class, 'resetPassword'])->name('security.password-reset');
+
 Route::get('/verify-account', [SecurityController::class, 'verifyAccount'])->name('security.verify-account');
-
-Route::get('/connexion', [SecurityController::class, 'loginView'])->name('security.login-view');
-Route::post('/connexion', [SecurityController::class, 'login'])->name('security.login');
-
 Route::get('/logout', [SecurityController::class, 'logout'])->name('security.logout');
 
-Route::get('/profile', [SecurityController::class, 'profilePage'])->middleware('auth')->name('security.profile');
+Route::get('/profil', [SecurityController::class, 'profilePage'])->middleware('auth')->name('security.profile');
+Route::post('/profil', [SecurityController::class, 'editProfile'])->middleware('auth')->name('security.edit-profile');

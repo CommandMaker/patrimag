@@ -8,7 +8,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class AccountVerificationSuccessful extends Mailable
+class AccountVerificationSuccessfulMail extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -31,7 +31,7 @@ class AccountVerificationSuccessful extends Mailable
      */
     public function build()
     {
-        return $this->view('mails.security.account-verification-successful', [
+        return $this->view('mails.security.account-verification-successful-mail', [
             'user' => $this->user
         ])
             ->from('accounts@patrimag.tk', 'Équipe des comptes Patri-Mag')

@@ -1,0 +1,17 @@
+// Profile page layout style
+//================
+
+.profile-topbar {
+    width: 100%;
+    min-height: 30vh;
+
+    border-bottom: 1px solid var(--borders-color);
+    margin-bottom: 2rem;
+
+    display: flex;
+    align-items: center;
+}
+
+.profile-topbar .user-name {
+    margin: 0 0 0.6rem 0;
+}

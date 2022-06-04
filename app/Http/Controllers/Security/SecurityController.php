@@ -2,15 +2,17 @@
 
 namespace App\Http\Controllers\Security;
 
-use App\Mail\Security\AccountVerificationSuccessful;
-use App\Mail\Security\RegisterMail;
-use App\Models\User;
+use App\Mail\Security\PasswordUpdatedMail;
 use DateTime;
+use Carbon\Carbon;
+use App\Models\User;
 use Illuminate\Http\Request;
+use App\Mail\Security\RegisterMail;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
+use App\Mail\Security\AccountVerificationSuccessfulMail;
 
 class SecurityController extends Controller
 {
@@ -62,7 +64,7 @@ class SecurityController extends Controller
             'email_verified_at' => new DateTime()
         ]);
 
-        Mail::to($user)->send(new AccountVerificationSuccessful($user));
+        Mail::to($user)->send(new AccountVerificationSuccessfulMail($user));
 
         return redirect()->route('security.login-view');
     }
@@ -102,11 +104,60 @@ class SecurityController extends Controller
 
     public function profilePage ()
     {
-        return view('pages.security.profile');
+        $registeredSince = Carbon::parse(auth()->user()->created_at)->diffForHumans(null, true);
+
+        return view('pages.security.profile', [
+            'registeredSince' => $registeredSince
+        ]);
+    }
+
+    public function editProfile (Request $request)
+    {
+        /** @var User $user */
+        $user = auth()->user();
+
+        if ($request->has('update')) {
+            $credentials = $request->validate([
+                'username' => 'required|max:255|min:8|unique:users,email,' . $user->id,
+                'email' => 'required|email|max:255|unique:users,email,' . $user->id,
+            ], [
+                'username.unique' => 'Ce nom d\'utilisateur est déjà pris !',
+                'email.unique' => 'Cet adresse email est déjà prise !',
+            ]);
+
+            $user->update([
+                'name' => $request->username,
+                'email' => $request->email
+            ]);
+        }
+
+        if ($request->has('password')) {
+            $credentials = $request->validate([
+                'actual_password' => 'required|max:255|min:8',
+                'new_password' => 'required|max:255|min:8',
+                'confirm_new_password' => 'required|max:255|min:8|same:new_password',
+            ], [
+                'confirm_new_password.same' => 'Vos mots de passes ne correspondent pas !'
+            ]);
+
+            if (!Hash::check($request->actual_password, $user->password)) {
+                return back()->withErrors([
+                    'actual_password' => 'Le mot de passe n\'est pas identique à votre mot de passe actuel'
+                ]);
+            }
+
+            $user->update([
+                'password' => Hash::make($request->new_password)
+            ]);
+
+            Mail::to($user)->send(new PasswordUpdatedMail($user));
+        }
+
+        return back();
     }
 
     public static function generateActivationToken (string $email): string
     {
-        return sha1(mt_rand(10000,99999).time().sha1($email));
+        return sha1(mt_rand(10000, 99999) . time() . sha1($email));
     }
 }
