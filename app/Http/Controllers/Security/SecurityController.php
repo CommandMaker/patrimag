@@ -84,7 +84,7 @@ class SecurityController extends Controller
             '_password' => 'string|max:255|required'
         ]);
 
-        if (Auth::attempt(['email' => $credentials['_email'], 'password' => $credentials['_password']])) {
+        if (Auth::attempt(['email' => $credentials['_email'], 'password' => $credentials['_password']], remember: $request->remember_me)) {
             $request->session()->regenerate();
 
             return redirect()->route('index.index');

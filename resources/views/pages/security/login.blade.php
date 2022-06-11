@@ -8,9 +8,9 @@
             <h1 style="margin-bottom: .5rem;">Se connecter</h1>
 
             @error('authentication-error')
-                <div class="notification is-danger">
-                    {{ $message }}
-                </div>
+            <div class="notification is-danger">
+                {{ $message }}
+            </div>
             @enderror
 
             <form action="{{ route('security.login') }}" method="POST">
@@ -21,7 +21,8 @@
 
                     <div class="control">
                         <i class="icon-left ri-mail-line"></i>
-                        <input type="email" class="input" name="_email" id="email" value="{{ old('_email') }}" required placeholder="Adresse email">
+                        <input type="email" class="input" name="_email" id="email" value="{{ old('_email') }}" required
+                               placeholder="Adresse email">
                     </div>
                     @error('_email')
                     <p class="help-text is-danger">{{ $message }}</p>
@@ -33,14 +34,20 @@
 
                     <div class="control">
                         <i class="icon-left ri-key-2-line"></i>
-                        <input type="password" class="input" name="_password" id="password" required placeholder="Mot de passe">
+                        <input type="password" class="input" name="_password" id="password" required
+                               placeholder="Mot de passe">
                     </div>
                     @error('_password')
                     <p class="help-text is-danger">{{ $message }}</p>
                     @enderror
                 </div>
 
-                <div class="text-right" style="margin-bottom: 1.5rem;">
+                <div class="field is-flex is-justify-content-space-between">
+                    <label>
+                        <input type="checkbox" name="remember_me">
+                        Se souvenir de moi
+                    </label>
+
                     <a href="{{ route('security.password-reset-view') }}" class="text-right">Mot de passe oublié ?</a>
                 </div>
 

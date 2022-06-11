@@ -8,6 +8,10 @@ header.app-header {
     justify-content: center;
 
     margin-bottom: 20px;
+
+    a {
+        color: var(--primary-text-color);
+    }
 }
 
 // Navbar style
