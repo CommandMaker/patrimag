@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\IndexController;
+use App\Http\Controllers\Security\PasswordResetController;
 use App\Http\Controllers\Security\SecurityController;
 use App\Http\Middleware\NotAuthenticated;
 use Illuminate\Support\Facades\Route;
@@ -32,8 +33,10 @@ Route::middleware('guest')->group(function () {
     Route::post('/connexion', [SecurityController::class, 'login'])->name('security.login');
 });
 
-Route::get('/mot-de-passe-perdu', [SecurityController::class, 'resetPasswordView'])->name('security.password-reset-view');
-Route::post('/reset-password', [SecurityController::class, 'resetPassword'])->name('security.password-reset');
+Route::get('/mot-de-passe-perdu', [PasswordResetController::class, 'resetPasswordLinkView'])->middleware('guest')->name('security.password-reset-view');
+Route::post('/reset-password', [PasswordResetController::class, 'resetPasswordLink'])->middleware('guest')->name('security.password-reset');
+Route::get('/mot-de-passe-perdu/{token}', [PasswordResetController::class, 'resetPasswordFormView'])->middleware('guest')->name('password.reset');
+Route::post('/update-password', [PasswordResetController::class, 'resetPasswordForm'])->middleware('guest')->name('password.update');
 
 Route::get('/verify-account', [SecurityController::class, 'verifyAccount'])->name('security.verify-account');
 Route::get('/logout', [SecurityController::class, 'logout'])->name('security.logout');

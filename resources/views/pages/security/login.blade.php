@@ -40,6 +40,10 @@
                     @enderror
                 </div>
 
+                <div class="text-right" style="margin-bottom: 1.5rem;">
+                    <a href="{{ route('security.password-reset-view') }}" class="text-right">Mot de passe oublié ?</a>
+                </div>
+
                 <button type="submit" class="button full-width">Se connecter</button>
             </form>
         </div>

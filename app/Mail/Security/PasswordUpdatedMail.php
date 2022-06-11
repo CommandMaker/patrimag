@@ -21,7 +21,6 @@ class PasswordUpdatedMail extends Mailable
         protected User $user
     )
     {
-        //
     }
 
     /**
@@ -29,7 +28,7 @@ class PasswordUpdatedMail extends Mailable
      *
      * @return $this
      */
-    public function build()
+    public function build (): self
     {
         return $this->view('mails.security.password-updated-mail', [
             'user' => $this->user

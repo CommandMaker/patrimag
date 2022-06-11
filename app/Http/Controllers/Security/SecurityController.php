@@ -2,16 +2,19 @@
 
 namespace App\Http\Controllers\Security;
 
-use App\Mail\Security\PasswordUpdatedMail;
 use DateTime;
+use Password;
 use Carbon\Carbon;
 use App\Models\User;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Mail\Security\RegisterMail;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Auth\Events\PasswordReset;
+use App\Mail\Security\PasswordUpdatedMail;
 use App\Mail\Security\AccountVerificationSuccessfulMail;
 
 class SecurityController extends Controller
