@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -31,6 +32,11 @@ class Article extends Model
     /**
      * @var array
      */
-    protected $fillable = ['title', 'slug', 'description', 'image', 'content', 'author', 'likes', 'dislikes', 'created_at', 'updated_at'];
+    protected $fillable = ['title', 'slug', 'description', 'image', 'content', 'author_id', 'likes', 'dislikes', 'created_at', 'updated_at'];
 
+
+    public function author ()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

@@ -6,7 +6,7 @@
     <div class="profile-topbar">
         <div class="container">
             <h1 class="user-name">{{ auth()->user()->name }}</h1>
-            <p class="user-desc">Inscrit depuis {{ $registeredSince }} @if (auth()->user()->is_admin)| (nb articles) article(s) écrit(s) @endif</p>
+            <p class="user-desc">Inscrit depuis {{ $registeredSince }} @if (auth()->user()->is_admin)| {{ count(auth()->user()->articles) }} article(s) écrit(s) @endif</p>
         </div>
     </div>
 

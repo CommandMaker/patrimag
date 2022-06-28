@@ -30,7 +30,7 @@ class ArticleFactory extends Factory
             'description' => Str::limit($content, 700),
             'image' => 'https://picsum.photos/1920/1080?random=12965',
             'content' => $content,
-            'author' => $this->faker->userName(),
+            'author_id' => 1,
             'likes' => 0,
             'dislikes' => 0
         ];
