@@ -1,6 +1,6 @@
 <header class="app-header">
     <nav class="app-header__navbar">
-        <a href="{{ route('index.index') }}" class="app-header__title-link"><img src="/storage/images/patrimag-logo.png" alt="Logo Patri-Mag"></a>
+        <a href="{{ route('index.index') }}" class="app-header__title-link"><img src="/images/patrimag-logo.png" alt="Logo Patri-Mag"></a>
 
         <div class="app-header__content">
             <div style="display: flex; gap: 20px;">
