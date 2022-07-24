@@ -51,6 +51,8 @@ form {
     height: 100%;
     margin: 0 1rem 0 auto;
 
+    background: var(--contrast-text-color);
+
     font-size: .95rem;
 
     &::placeholder {
@@ -107,6 +109,7 @@ input[type='radio'] {
     background: var(--b, var(--background));
     transition: background .3s, border-color .3s, box-shadow .2s;
 
+    //noinspection CssInvalidFunction
     &:after {
         content: '';
         display: block;
