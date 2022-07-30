@@ -12,6 +12,12 @@ class APICommentController extends Controller
     public function getComments (Request $request, int $id)
     {
         $page = $request->page;
+        $orderby = $request->orderby;
+
+        if (!$orderby || (strtolower($orderby) !== 'asc' && strtolower($orderby) !== 'desc'))
+        {
+            $orderby = 'desc';
+        }
 
         if (!$page) {
             $page = 1;
@@ -24,7 +30,7 @@ class APICommentController extends Controller
             ], 404);
         }
 
-        $comments = Comment::with('author')->whereArticleId($id)->paginate(30);
+        $comments = Comment::with('author')->orderBy('id', $orderby)->whereArticleId($id)->paginate(30);
 
         return response()->json([
             'status' => 200,
