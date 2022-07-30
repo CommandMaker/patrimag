@@ -11,7 +11,7 @@
         </div>
     </div>
 
-    <article class="article">
+    <article class="article" data-id="{{ $article->id }}">
         {!! html_entity_decode($article->content) !!}
     </article>
 
@@ -20,23 +20,25 @@
     <section class="comments-section">
         <h2 class="section-title">L'article vous a plu ? Laissez-un commentaire !</h2>
 
-        @if (Session::get('success'))
-            <div class="notification is-success">
-                {{ Session::get('success') }}
-            </div>
-        @endif
+        <div id="notification-section">
+            @if (Session::get('success'))
+                <div class="notification is-success">
+                    {{ Session::get('success') }}
+                </div>
+            @endif
 
-        @if (Session::get('error'))
-            <div class="notification is-danger">
-                {{ Session::get('error') }}
-            </div>
-        @endif
+            @if (Session::get('error'))
+                <div class="notification is-danger">
+                    {{ Session::get('error') }}
+                </div>
+            @endif
 
-        @error ('comment_content')
+            @error ('comment_content')
             <div class="notification is-danger">
                 {{ $message }}
             </div>
-        @enderror
+            @enderror
+        </div>
 
         @guest
             <h3 class="auth-warn-comment">Vous devez être connecté pour poster un commentaire</h3>
@@ -55,17 +57,17 @@
             </form>
         @endauth
 
-        <h2 class="section-title">Les autres commentaires</h2>
-
-        <div class="comments">
-            @foreach($article->comments as $comment)
-                <div class="comment">
-                    <div class="comment-header">Écrit par <b class="comment-author">{{ $comment->author->name }}</b> le {{ $comment->created_at->format('d/m/Y à H:i') }}</div>
-                    <div class="comment-body">
-                        {!! html_entity_decode(Parsedown::instance()->text($comment->content)) !!}
-                    </div>
-                </div>
-            @endforeach
+        <div class="is-flex is-align-items-center is-justify-content-space-between">
+            <h2 class="section-title" id="other-comments">Les autres commentaires</h2>
+            <div>
+                <label for="orderby">Trier par :</label>
+                <select id="orderby">
+                    <option value="desc">Les + récents</option>
+                    <option value="asc">Les + anciens</option>
+                </select>
+            </div>
         </div>
+
+        <div class="comments" id="comments-container"></div>
     </section>
 @endsection

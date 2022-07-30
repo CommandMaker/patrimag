@@ -50,7 +50,7 @@ class ArticleController extends Controller
         ]);
 
         Comment::create([
-            'content' => $request->comment_content,
+            'content' => nl2br($request->comment_content),
             'article_id' => $id,
             'author_id' => auth()->user()->id
         ]);
