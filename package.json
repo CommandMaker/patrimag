@@ -19,6 +19,6 @@
         "sass-loader": "12.1.0"
     },
     "dependencies": {
-        "bulma-scss": "^0.9.3"
+        "easymde": "^2.16.1"
     }
 }

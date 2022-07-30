@@ -17,8 +17,5 @@ mix.js('resources/js/app.js', 'public/js')
     .sass('resources/css/app.scss', mix.inProduction() ? 'public/css/app.min.css' : 'public/css', {
         sassOptions : { outputStyle: mix.inProduction() ? 'compressed' : 'expanded' }
     })
-    .sass('node_modules/bulma-scss/bulma.scss', mix.inProduction() ? 'public/css/bulma.min.css' : 'public/css', {
-        sassOptions : { outputStyle: mix.inProduction() ? 'compressed' : 'expanded' }
-    })
     .sourceMaps(!mix.inProduction())
     .version();
