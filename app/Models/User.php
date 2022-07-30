@@ -3,6 +3,8 @@
 namespace App\Models;
 
 use App\Models\Article;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Http\Resources\Json\JsonResource;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
@@ -47,6 +49,11 @@ class User extends Authenticatable
      */
     protected $hidden = [
         'remember_token',
+        'password',
+        'verify_token',
+        'email_verified_at',
+        'created_at',
+        'updated_at'
     ];
 
     /**
@@ -58,7 +65,7 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function articles ()
+    public function articles (): HasMany
     {
         return $this->hasMany(Article::class, 'author_id');
     }

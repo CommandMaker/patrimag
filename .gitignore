@@ -24,3 +24,4 @@ nohup.out
 .phpstorm.meta.php
 
 TODO.MD
+/.phpunit-watcher.yml
