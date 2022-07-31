@@ -7,12 +7,6 @@
         <div class="form-centered-card" style="max-width: 500px;">
             <h1 style="margin-bottom: .5rem;">Mot de passe oublié ?</h1>
 
-            @if (session('status'))
-                <div class="notification">
-                    {{ session('status') }}
-                </div>
-            @endif
-
             <form action="{{ route('security.password-reset') }}" method="POST">
                 @csrf
 

@@ -15,15 +15,15 @@ class APICommentController extends Controller
         $page = $request->page;
         $orderby = $request->orderby;
 
-        if (! $orderby || (strtolower($orderby) !== 'asc' && strtolower($orderby) !== 'desc')) {
+        if (!$orderby || (strtolower($orderby) !== 'asc' && strtolower($orderby) !== 'desc')) {
             $orderby = 'desc';
         }
 
-        if (! $page) {
+        if (!$page) {
             $page = 1;
         }
 
-        if (! Article::find($id)) {
+        if (!Article::find($id)) {
             return response()->json([
                 'status' => 404,
                 'msg' => 'Aucun article ne correspond à cet id !',

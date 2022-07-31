@@ -15,6 +15,28 @@
         @yield('body')
         @yield('footer', view('components.footer._footer'))
 
+        <div class="flashes-container">
+            @if (Session::has('success'))
+                @if (gettype(Session::get('success')) === 'string')
+                    @include('components.flashes._flash', ['type' => 'success', 'message' => Session::get('success')])
+
+                @else
+                    @foreach (Session::get('success') as $success)
+                        @include('components.flashes._flash', ['type' => 'success', 'message' => $success])
+                    @endforeach
+                @endif
+            @endif
+            @if (Session::has('error'))
+                @if (gettype(Session::get('error')) === 'string')
+                    @include('components.flashes._flash', ['type' => 'danger', 'message' => Session::get('error')])
+                @else
+                    @foreach (Session::get('error') as $error)
+                        @include('components.flashes._flash', ['type' => 'danger', 'message' => $error])
+                    @endforeach
+                @endif
+            @endif
+        </div>
+
         <script src="/js/app.js"></script>
     </body>
 </html>

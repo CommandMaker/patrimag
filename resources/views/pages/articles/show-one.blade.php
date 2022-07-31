@@ -20,26 +20,6 @@
     <section class="comments-section">
         <h2 class="section-title">L'article vous a plu ? Laissez-un commentaire !</h2>
 
-        <div id="notification-section">
-            @if (Session::get('success'))
-                <div class="notification is-success">
-                    {{ Session::get('success') }}
-                </div>
-            @endif
-
-            @if (Session::get('error'))
-                <div class="notification is-danger">
-                    {{ Session::get('error') }}
-                </div>
-            @endif
-
-            @error ('comment_content')
-            <div class="notification is-danger">
-                {{ $message }}
-            </div>
-            @enderror
-        </div>
-
         @guest
             <h3 class="auth-warn-comment">Vous devez être connecté pour poster un commentaire</h3>
         @endguest

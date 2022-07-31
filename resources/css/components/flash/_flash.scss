@@ -1,0 +1,87 @@
+.flashes-container {
+    position: fixed;
+    right: 20px;
+    top: 80px;
+    z-index: 999;
+    
+    width: 360px;
+}
+
+.flashes-container .flash {
+    --flash-color: rgba(10, 10, 10, .3);
+
+    margin: 1rem 0;
+    
+    &.flash-success {
+        --flash-color: rgb(var(--success-color));
+    }
+    
+    &.flash-danger {
+        --flash-color: rgb(var(--danger-color));
+    }
+    
+    background: var(--contrast-text-color);
+    box-shadow: 1px 4px 5px var(--borders-color);
+    padding: 10px 10px 15px 15px;
+    border-radius: 5px;
+    
+    position: relative;
+    overflow: hidden;
+    
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-between;
+    align-items: flex-start;
+    
+    transition: transform .8s ease-in-out;
+    
+    &.disappear {
+        transform: translateX(370px);
+    }
+    
+    &::after {
+        content: '';
+        display: block;
+        height: 5px;
+        
+        background: var(--flash-color);
+        
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        
+        animation: slide 6s linear;
+    }
+    
+    div.close-container {
+        width: 24px;
+        height: 24px;
+        cursor: pointer;
+        
+        svg.flash-close-button {
+            width: 24px;
+            height: 24px;
+            fill: rgba(10, 10, 10, .3);
+            transition: fill .25s;
+        }
+        
+        &:hover svg.flash-close-button {
+            fill: rgba(0, 0, 0, .5);
+        }
+    }
+}
+
+.flashes-container .flash p.flash-message {
+    align-content: center;
+}
+
+@keyframes slide {
+    0% {
+        right: 360px;
+    }
+    
+    100% {
+        right: 0;
+    }
+}

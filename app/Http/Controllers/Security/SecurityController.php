@@ -56,7 +56,7 @@ class SecurityController extends Controller
         /** @var User|null $user */
         $user = User::find($u);
 
-        if (! $u || ! $token || ! $user || $user->verify_token !== $token) {
+        if (!$u || !$token || !$user || $user->verify_token !== $token) {
             return redirect()->route('security.login-view')->withErrors(['_email' => 'Le token ou l\'utilisateur n\'est pas valide !']);
         }
 
@@ -88,8 +88,8 @@ class SecurityController extends Controller
             return redirect()->route('index.index');
         }
 
-        return back()->withErrors([
-            'authentication-error' => 'Vos identifiants sont invalides',
+        return back()->with([
+            'error' => 'Vos identifiants sont invalides',
         ])->withInput($request->only('_email'));
     }
 
@@ -141,7 +141,7 @@ class SecurityController extends Controller
                 'confirm_new_password.same' => 'Vos mots de passes ne correspondent pas !',
             ]);
 
-            if (! Hash::check($request->actual_password, $user->password)) {
+            if (!Hash::check($request->actual_password, $user->password)) {
                 return back()->withErrors([
                     'actual_password' => 'Le mot de passe n\'est pas identique à votre mot de passe actuel',
                 ]);

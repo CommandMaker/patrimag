@@ -6,14 +6,6 @@
     <div class="container">
         <h1>Réinitialiser votre mot de passe</h1>
 
-        @if($errors->any())
-            @foreach($errors->all() as $error)
-                <div class="notification is-danger">
-                    {{ $error }}
-                </div>
-            @endforeach
-        @endif
-
         <form action="{{ route('password.update') }}" method="POST">
             @csrf
 

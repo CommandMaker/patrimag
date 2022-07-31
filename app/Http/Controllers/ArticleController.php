@@ -38,12 +38,12 @@ class ArticleController extends Controller
 
     public function submitComment(Request $request, int $id): RedirectResponse
     {
-        if (! auth()->user()) {
+        if (!auth()->user()) {
             return back()->withErrors(['msg' => 'Je ne sais pas comment vous avez trouvé ça mais vous devez être connecté pour vous en servir !']);
         }
 
-        if (! Article::find($id)) {
-            return back()->withErrors(['msg' => 'L\'article spécifié n\'existe pas']);
+        if (!Article::find($id)) {
+            return back()->with('error', 'L\'article spécifié n\'existe pas');
         }
 
         $request->validate([
@@ -63,17 +63,17 @@ class ArticleController extends Controller
     {
         $cid = $request->cid;
 
-        if (! $cid) {
+        if (!$cid) {
             return back()->withErrors(['msg' => 'Il est nécéssaire de spécifier un commentaire pour le supprimer']);
         }
 
-        if (! auth()->user()) {
+        if (!auth()->user()) {
             return back()->withErrors(['msg' => 'Je ne sais pas comment vous avez trouvé ça mais vous devez être connecté pour vous en servir !']);
         }
 
         $comment = Comment::find($cid);
 
-        if (! $comment) {
+        if (!$comment) {
             return back()->withErrors(['msg' => 'Le commentaire spécifié n\'existe pas !']);
         }
 
