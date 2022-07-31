@@ -57,18 +57,38 @@ const appendCommentsToPage = (json) => {
         return displayError(`Erreur lors de la récupération des commentaires (status ${json.status}) : ${json.msg}`);
     }
 
+    if (json.total == 0) {
+        const container = document.createElement('div');
+        container.classList.add('is-flex', 'is-flex-direction-column', 'is-justify-content-center', 'is-align-items-center');
+
+        const h3 = document.createElement('h3');
+        h3.classList.add('title', 'is-3', 'my-4');
+        h3.textContent = 'Aucun commentaire n\'a encore été posté';
+
+        const subtitle = document.createElement('p');
+        subtitle.textContent = 'Soyez le premier à en poster un !';
+
+        container.appendChild(h3);
+        container.appendChild(subtitle);
+
+        commentsContainer.appendChild(container);
+        return;
+    }
+
     if (!numberShowed) {
         document.querySelector('#other-comments').textContent += ` (${json.total})`;
         numberShowed = true;
     }
 
     json.data.forEach(e => {
+        const createdAt = new Date(e.created_at);
+
         let container = document.createElement('div');
         container.classList.add('comment');
 
         let commentHeader = document.createElement('div');
         commentHeader.classList.add('comment-header');
-        commentHeader.innerHTML = `Écrit par <b>${e.author.name}</b> ${e.author.is_admin ? '(Administrateur)': ''} le ${moment(e.created_at).format('DD/MM/YYYY à H:m')}`;
+        commentHeader.innerHTML = `Écrit par <b>${e.author.name}</b> ${e.author.is_admin ? '(Administrateur)': ''} le ${createdAt.toLocaleDateString('fr-FR')} à ${createdAt.getHours() + ':' + createdAt.getMinutes()}`;
 
         container.appendChild(commentHeader);
 
