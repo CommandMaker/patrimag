@@ -1,3 +1,5 @@
+const moment = require('moment');
+
 (function sayHelloToUser () {
     let helloSpan = document.querySelector('span.hello');
 
@@ -5,12 +7,13 @@
         return;
     }
 
-    let time = new Date();
-    let curTime = parseInt(time.getHours() + "" + ("0" + time.getMinutes()).substring(-2) + "" + ("0" + time.getSeconds()).substring(-2));
+    const date = new Date();
+    const hm = String(date.getHours()) + String(date.getMinutes()).padStart(2, '0');
 
-    if (curTime > 183000) {
-        helloSpan.textContent = 'Bonsoir';
-    } else {
+    if (hm < 1830) {
         helloSpan.textContent = 'Bonjour';
+        return;
     }
+
+    helloSpan.textContent = 'Bonsoir';
 })();
