@@ -2,19 +2,16 @@
 
 namespace App\Models;
 
-use App\Models\Article;
-use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Http\Resources\Json\JsonResource;
-use Laravel\Sanctum\HasApiTokens;
-use Illuminate\Notifications\Notifiable;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
+use Laravel\Sanctum\HasApiTokens;
 
 /**
  * Class User
  *
- * @property integer $id
+ * @property int $id
  * @property string $name
  * @property string $email
  * @property \DateTime $email_verified_at
@@ -22,8 +19,6 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  * @property string $remember_token
  * @property \DateTime $created_at
  * @property \DateTime $updated_at
- *
- * @package App\Models
  */
 class User extends Authenticatable
 {
@@ -39,7 +34,7 @@ class User extends Authenticatable
         'email',
         'password',
         'verify_token',
-        'email_verified_at'
+        'email_verified_at',
     ];
 
     /**
@@ -53,7 +48,7 @@ class User extends Authenticatable
         'verify_token',
         'email_verified_at',
         'created_at',
-        'updated_at'
+        'updated_at',
     ];
 
     /**
@@ -65,7 +60,12 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function articles (): HasMany
+    /**
+     * Return the user's posted articles
+     *
+     * @return HasMany<Article>
+     */
+    public function articles(): HasMany
     {
         return $this->hasMany(Article::class, 'author_id');
     }

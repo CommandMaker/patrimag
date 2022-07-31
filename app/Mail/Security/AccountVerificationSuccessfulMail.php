@@ -4,7 +4,6 @@ namespace App\Mail\Security;
 
 use App\Models\User;
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
@@ -19,8 +18,7 @@ class AccountVerificationSuccessfulMail extends Mailable
      */
     public function __construct(
         protected User $user
-    )
-    {
+    ) {
         //
     }
 
@@ -32,7 +30,7 @@ class AccountVerificationSuccessfulMail extends Mailable
     public function build()
     {
         return $this->view('mails.security.account-verification-successful-mail', [
-            'user' => $this->user
+            'user' => $this->user,
         ])
             ->from('accounts@patrimag.tk', 'Équipe des comptes Patri-Mag')
             ->subject('Merci d\'avoir activé votre compte');

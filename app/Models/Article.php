@@ -2,19 +2,20 @@
 
 namespace App\Models;
 
-use App\Models\User;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
- * @property integer $id
+ * @property int $id
  * @property string $title
  * @property string $slug
  * @property string $description
  * @property string $content
  * @property string $author
- * @property integer $likes
- * @property integer $dislikes
+ * @property int $likes
+ * @property int $dislikes
  * @property string $created_at
  * @property string $updated_at
  */
@@ -30,17 +31,26 @@ class Article extends Model
     protected $keyType = 'integer';
 
     /**
-     * @var array
+     * @var array<string>
      */
     protected $fillable = ['title', 'slug', 'description', 'image', 'content', 'author_id', 'likes', 'dislikes', 'created_at', 'updated_at'];
 
-
-    public function author ()
+    /**
+     * Return the article's author
+     *
+     * @return BelongsTo<User, Article>
+     */
+    public function author(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }
 
-    public function comments ()
+    /**
+     * Return all article's comments
+     *
+     * @return HasMany<Comment>
+     */
+    public function comments(): HasMany
     {
         return $this->hasMany(Comment::class);
     }

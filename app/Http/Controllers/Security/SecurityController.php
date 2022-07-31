@@ -2,48 +2,46 @@
 
 namespace App\Http\Controllers\Security;
 
-use DateTime;
-use Password;
-use Carbon\Carbon;
-use App\Models\User;
-use Illuminate\Support\Str;
-use Illuminate\Http\Request;
-use App\Mail\Security\RegisterMail;
 use App\Http\Controllers\Controller;
+use App\Mail\Security\AccountVerificationSuccessfulMail;
+use App\Mail\Security\PasswordUpdatedMail;
+use App\Mail\Security\RegisterMail;
+use App\Models\User;
+use Carbon\Carbon;
+use DateTime;
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
-use Illuminate\Auth\Events\PasswordReset;
-use App\Mail\Security\PasswordUpdatedMail;
-use App\Mail\Security\AccountVerificationSuccessfulMail;
 
 class SecurityController extends Controller
 {
-
-    public function registerView ()
+    public function registerView(): View
     {
         return view('pages.security.register');
     }
 
-    public function register (Request $request)
+    public function register(Request $request): RedirectResponse
     {
         $credentials = $request->validate([
             '_username' => 'required|max:255|min:8|unique:users,name',
             '_email' => 'required|email|max:255|unique:users,email',
             '_password' => 'required|max:255|min:8',
             '_confirm-password' => 'required|max:255|min:8|same:_password',
-            'g-recaptcha-response' => 'required|captcha'
+            'g-recaptcha-response' => 'required|captcha',
         ], [
             '_username.unique' => 'Ce nom d\'utilisateur est déjà pris !',
             '_email.unique' => 'Cet adresse email est déjà prise !',
-            '_confirm-password.same' => 'Vos mots de passes ne correspondent pas !'
+            '_confirm-password.same' => 'Vos mots de passes ne correspondent pas !',
         ]);
 
         $user = User::create([
             'name' => $request->_username,
             'email' => $request->_email,
             'password' => Hash::make($request->_password),
-            'verify_token' => static::generateActivationToken($request->_email)
+            'verify_token' => static::generateActivationToken($request->_email),
         ]);
 
         Mail::to($user)->send(new RegisterMail($user));
@@ -51,20 +49,20 @@ class SecurityController extends Controller
         return redirect()->route('security.login-view');
     }
 
-    public function verifyAccount (Request $request)
+    public function verifyAccount(Request $request): RedirectResponse
     {
         $u = $request->u;
         $token = $request->token;
-        /** @var User $user */
+        /** @var User|null $user */
         $user = User::find($u);
 
-        if (!$u || !$token || !$user || $user->verify_token !== $token) {
+        if (! $u || ! $token || ! $user || $user->verify_token !== $token) {
             return redirect()->route('security.login-view')->withErrors(['_email' => 'Le token ou l\'utilisateur n\'est pas valide !']);
         }
 
         $user->update([
             'verify_token' => null,
-            'email_verified_at' => new DateTime()
+            'email_verified_at' => new DateTime(),
         ]);
 
         Mail::to($user)->send(new AccountVerificationSuccessfulMail($user));
@@ -72,16 +70,16 @@ class SecurityController extends Controller
         return redirect()->route('security.login-view');
     }
 
-    public function loginView ()
+    public function loginView(): View
     {
         return view('pages.security.login');
     }
 
-    public function login (Request $request)
+    public function login(Request $request): RedirectResponse
     {
         $credentials = $request->validate([
             '_email' => 'email|max:255|required',
-            '_password' => 'string|max:255|required'
+            '_password' => 'string|max:255|required',
         ]);
 
         if (Auth::attempt(['email' => $credentials['_email'], 'password' => $credentials['_password']], remember: $request->remember_me)) {
@@ -95,7 +93,7 @@ class SecurityController extends Controller
         ])->withInput($request->only('_email'));
     }
 
-    public function logout (Request $request)
+    public function logout(Request $request): RedirectResponse
     {
         Auth::logout();
 
@@ -105,16 +103,16 @@ class SecurityController extends Controller
         return back();
     }
 
-    public function profilePage ()
+    public function profilePage(): View
     {
-        $registeredSince = Carbon::parse(auth()->user()->created_at)->diffForHumans(null, true);
+        $registeredSince = Carbon::parse(auth()->user()->created_at)->diffForHumans(null, 1);
 
         return view('pages.security.profile', [
-            'registeredSince' => $registeredSince
+            'registeredSince' => $registeredSince,
         ]);
     }
 
-    public function editProfile (Request $request)
+    public function editProfile(Request $request): RedirectResponse
     {
         /** @var User $user */
         $user = auth()->user();
@@ -130,7 +128,7 @@ class SecurityController extends Controller
 
             $user->update([
                 'name' => $request->username,
-                'email' => $request->email
+                'email' => $request->email,
             ]);
         }
 
@@ -140,17 +138,17 @@ class SecurityController extends Controller
                 'new_password' => 'required|max:255|min:8',
                 'confirm_new_password' => 'required|max:255|min:8|same:new_password',
             ], [
-                'confirm_new_password.same' => 'Vos mots de passes ne correspondent pas !'
+                'confirm_new_password.same' => 'Vos mots de passes ne correspondent pas !',
             ]);
 
-            if (!Hash::check($request->actual_password, $user->password)) {
+            if (! Hash::check($request->actual_password, $user->password)) {
                 return back()->withErrors([
-                    'actual_password' => 'Le mot de passe n\'est pas identique à votre mot de passe actuel'
+                    'actual_password' => 'Le mot de passe n\'est pas identique à votre mot de passe actuel',
                 ]);
             }
 
             $user->update([
-                'password' => Hash::make($request->new_password)
+                'password' => Hash::make($request->new_password),
             ]);
 
             Mail::to($user)->send(new PasswordUpdatedMail($user));
@@ -159,7 +157,7 @@ class SecurityController extends Controller
         return back();
     }
 
-    public static function generateActivationToken (string $email): string
+    public static function generateActivationToken(string $email): string
     {
         return sha1(mt_rand(10000, 99999) . time() . sha1($email));
     }

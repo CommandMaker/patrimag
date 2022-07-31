@@ -2,19 +2,17 @@
 
 namespace Tests\Feature\Http\Controller;
 
-use Tests\TestCase;
-use App\Models\User;
 use App\Models\Article;
 use App\Models\Comment;
-use Illuminate\Foundation\Testing\WithFaker;
+use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Tests\TestCase;
 
 class ArticleControllerTest extends TestCase
 {
     use RefreshDatabase;
 
-
-    public function testIfCreateCommentWhenAllValid (): void
+    public function testIfCreateCommentWhenAllValid(): void
     {
         $user = User::factory()->create();
         Article::factory()->create();
@@ -22,25 +20,25 @@ class ArticleControllerTest extends TestCase
         $response = $this
             ->actingAs($user)
             ->post('/article/1/submit-comment', [
-                'comment_content' => 'Contenu d\'un commentaire'
+                'comment_content' => 'Contenu d\'un commentaire',
             ]);
 
-            $this->assertCount(1, Comment::all());
-            $response->assertSessionHas('success', 'Votre commentaire a bien été publié !');
-            $response->assertRedirect();
+        $this->assertCount(1, Comment::all());
+        $response->assertSessionHas('success', 'Votre commentaire a bien été publié !');
+        $response->assertRedirect();
     }
 
-    public function testIfErrorSubmitCommentWithoutAuthenticated (): void
+    public function testIfErrorSubmitCommentWithoutAuthenticated(): void
     {
         $response = $this->post('/article/1/submit-comment', [
-            'comment_content' => 'Contenu d\'un commentaire'
+            'comment_content' => 'Contenu d\'un commentaire',
         ]);
 
         $this->assertCount(0, Comment::all());
         $response->assertRedirect();
     }
 
-    public function testIfErrorSubmitCommentWithNonExistentArticleId (): void
+    public function testIfErrorSubmitCommentWithNonExistentArticleId(): void
     {
         $user = User::factory()->create();
 
@@ -54,7 +52,7 @@ class ArticleControllerTest extends TestCase
         $response->assertRedirect();
     }
 
-    public function testIfErrorCreateCommentWithSubmittedDataError (): void
+    public function testIfErrorCreateCommentWithSubmittedDataError(): void
     {
         $user = User::factory()->create();
         Article::factory()->create();
@@ -62,7 +60,7 @@ class ArticleControllerTest extends TestCase
         $response = $this
             ->actingAs($user)
             ->post('/article/1/submit-comment', [
-                'comment_content' => 123456789
+                'comment_content' => 123456789,
             ]);
 
         $response->assertSessionHasErrors(['comment_content']);
@@ -70,7 +68,7 @@ class ArticleControllerTest extends TestCase
         $response->assertRedirect();
     }
 
-    public function testIfErrorCreateCommentWithoutData (): void
+    public function testIfErrorCreateCommentWithoutData(): void
     {
         $user = User::factory()->create();
         Article::factory()->create();
@@ -84,7 +82,7 @@ class ArticleControllerTest extends TestCase
         $response->assertRedirect();
     }
 
-    public function testIfErrorWhenDeleteCommentWithoutCommentId (): void
+    public function testIfErrorWhenDeleteCommentWithoutCommentId(): void
     {
         $user = User::factory()->create();
         Article::factory()->create();
@@ -97,7 +95,7 @@ class ArticleControllerTest extends TestCase
         $response->assertRedirect();
     }
 
-    public function testIfErrorWhenDeleteCommentWithoutAuthenticated (): void
+    public function testIfErrorWhenDeleteCommentWithoutAuthenticated(): void
     {
         $user = User::factory()->create();
         Article::factory()->create();
@@ -110,7 +108,7 @@ class ArticleControllerTest extends TestCase
         $response->assertRedirect();
     }
 
-    public function testIfErrorWhenDeleteCommentForNonExistingComment (): void
+    public function testIfErrorWhenDeleteCommentForNonExistingComment(): void
     {
         $user = User::factory()->create();
         Article::factory()->create();
@@ -125,7 +123,7 @@ class ArticleControllerTest extends TestCase
         $response->assertRedirect();
     }
 
-    public function testIfErrorWhenDeleteCommentOfOther (): void
+    public function testIfErrorWhenDeleteCommentOfOther(): void
     {
         $user1 = User::factory()->create();
         $user = User::factory()->create();

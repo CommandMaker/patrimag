@@ -7,9 +7,6 @@ parameters:
         - app
 
     # The level 9 is the highest level
-    level: 5
-
-    ignoreErrors:
-        - '#PHPDoc tag @var#'
+    level: 6
     
     checkMissingIterableValueType: false

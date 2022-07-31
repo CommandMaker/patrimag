@@ -3,9 +3,9 @@
 namespace Database\Factories;
 
 use Cocur\Slugify\Slugify;
-use Illuminate\Support\Str;
 use Illuminate\Container\Container;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Str;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Article>
@@ -32,7 +32,7 @@ class ArticleFactory extends Factory
             'content' => $content,
             'author_id' => 1,
             'likes' => 0,
-            'dislikes' => 0
+            'dislikes' => 0,
         ];
     }
 }

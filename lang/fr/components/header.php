@@ -8,5 +8,5 @@ return [
     'contact.email' => 'Par E-mail',
 
     'login' => 'Se connecter',
-    'create-account' => 'S\'inscrire'
+    'create-account' => 'S\'inscrire',
 ];

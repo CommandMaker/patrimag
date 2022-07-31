@@ -3,12 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Article;
-use Illuminate\Http\Request;
+use Illuminate\Contracts\View\View;
 
 class IndexController extends Controller
 {
-
-    public function index ()
+    public function index(): View
     {
         /** @var Article[] $articles */
         $articles = Article::limit(6)
@@ -16,7 +15,7 @@ class IndexController extends Controller
             ->get();
 
         return view('index', [
-            'articles' => $articles
+            'articles' => $articles,
         ]);
     }
 }

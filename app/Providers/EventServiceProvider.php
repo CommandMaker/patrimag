@@ -2,8 +2,6 @@
 
 namespace App\Providers;
 
-use App\Listeners\PasswordResetListener;
-use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 
 class EventServiceProvider extends ServiceProvider

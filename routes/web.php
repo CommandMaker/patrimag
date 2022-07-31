@@ -4,7 +4,6 @@ use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\IndexController;
 use App\Http\Controllers\Security\PasswordResetController;
 use App\Http\Controllers\Security\SecurityController;
-use App\Http\Middleware\NotAuthenticated;
 use Illuminate\Support\Facades\Route;
 
 /*

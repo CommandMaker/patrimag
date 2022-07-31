@@ -4,7 +4,6 @@ namespace App\Mail\Security;
 
 use App\Models\User;
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
@@ -19,8 +18,7 @@ class PasswordUpdatedMail extends Mailable
      */
     public function __construct(
         protected User $user
-    )
-    {
+    ) {
     }
 
     /**
@@ -28,10 +26,10 @@ class PasswordUpdatedMail extends Mailable
      *
      * @return $this
      */
-    public function build (): self
+    public function build(): self
     {
         return $this->view('mails.security.password-updated-mail', [
-            'user' => $this->user
+            'user' => $this->user,
         ])
             ->from('accounts@patrimag.tk', 'Équipe des comptes Patri-Mag')
             ->subject('Alerte de sécurité ! Mot de passe modifié');

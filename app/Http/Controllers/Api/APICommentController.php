@@ -5,28 +5,28 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\Article;
 use App\Models\Comment;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class APICommentController extends Controller
 {
-    public function getComments (Request $request, int $id)
+    public function getComments(Request $request, int $id): JsonResponse
     {
         $page = $request->page;
         $orderby = $request->orderby;
 
-        if (!$orderby || (strtolower($orderby) !== 'asc' && strtolower($orderby) !== 'desc'))
-        {
+        if (! $orderby || (strtolower($orderby) !== 'asc' && strtolower($orderby) !== 'desc')) {
             $orderby = 'desc';
         }
 
-        if (!$page) {
+        if (! $page) {
             $page = 1;
         }
 
-        if (!Article::find($id)) {
+        if (! Article::find($id)) {
             return response()->json([
                 'status' => 404,
-                'msg' => 'Aucun article ne correspond à cet id !'
+                'msg' => 'Aucun article ne correspond à cet id !',
             ], 404);
         }
 
@@ -37,7 +37,7 @@ class APICommentController extends Controller
             'total' => $comments->total(),
             'lastPage' => $comments->lastPage(),
             'page' => $comments->currentPage(),
-            'data' => $comments->items()
+            'data' => $comments->items(),
         ]);
     }
 }
