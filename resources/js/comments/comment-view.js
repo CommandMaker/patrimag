@@ -1,7 +1,7 @@
 const {displayError} = require('../error/displayer');
-const moment = require('moment');
 const DOMPurify = require('dompurify');
 const {marked} = require('marked');
+const { displaySpinner, hideSpinner } = require('../spinner/spinner');
 
 let page = 1;
 
@@ -57,6 +57,7 @@ const appendCommentsToPage = (json) => {
         return displayError(`Erreur lors de la récupération des commentaires (status ${json.status}) : ${json.msg}`);
     }
 
+    /* Display message when no comments */
     if (json.total == 0) {
         const container = document.createElement('div');
         container.classList.add('is-flex', 'is-flex-direction-column', 'is-justify-content-center', 'is-align-items-center');
@@ -75,11 +76,13 @@ const appendCommentsToPage = (json) => {
         return;
     }
 
+    /* Show comments number */
     if (!numberShowed) {
         document.querySelector('#other-comments').textContent += ` (${json.total})`;
         numberShowed = true;
     }
 
+    /* Display comments */
     json.data.forEach(e => {
         const createdAt = new Date(e.created_at);
 
@@ -110,8 +113,20 @@ const appendCommentsToPage = (json) => {
  * @param {string} orderBy
  */
 const fetchAndDisplayComments = async (orderBy) => {
-    let apiCall = await getApiData(orderBy)
+    const spinnerContainer = document.createElement('div');
+    spinnerContainer.classList.add('is-flex', 'is-justify-content-center');
+
+    commentsContainer.appendChild(spinnerContainer);
+
+    displaySpinner(spinnerContainer);
+
+    const apiCall = await getApiData(orderBy)
         .then(json => {return json});
+
+    if (apiCall.status) {
+        hideSpinner(spinnerContainer.firstChild, true);
+    }
+
     appendCommentsToPage(apiCall);
 }
 
