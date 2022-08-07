@@ -1,5 +1,3 @@
-const moment = require('moment');
-
 (function sayHelloToUser () {
     let helloSpan = document.querySelector('span.hello');
 

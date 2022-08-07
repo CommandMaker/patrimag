@@ -1,9 +1,9 @@
-require('./bootstrap');
+import './bootstrap';
 
-require('./auth/say-hello-to-user');
+import './auth/say-hello-to-user';
 
-require('./flashes/flashes');
+import './flashes/flashes';
 
-require('./comments/md-editor');
-require('./comments/comment-view');
+import './comments/md-editor';
+import './comments/comment-view';
 
