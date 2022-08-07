@@ -31,7 +31,8 @@ class APICommentControllerTest extends TestCase
             'content' => 'Commentaire #2',
         ]);
 
-        $response = $this->getJson('/api/comments/1');
+        $response = $this->getJson('/api/comments/1?orderby=asc');
+
         $response->assertStatus(200);
         $response->assertJson([
             'status' => 200,
@@ -43,6 +44,58 @@ class APICommentControllerTest extends TestCase
                     'content' => 'Commentaire #2',
                 ],
             ],
+        ]);
+    }
+
+    public function testIfReturnDataOrderedDesc(): void
+    {
+        $user = User::factory()->create();
+        Article::factory()->create();
+        Comment::factory()->create([
+            'content' => 'Commentaire #1',
+        ]);
+        Comment::factory()->create([
+            'content' => 'Commentaire #2',
+        ]);
+
+        $request = $this->get('/api/comments/1');
+        $request->assertStatus(200);
+        $request->assertJson([
+            'status' => 200,
+            'data' => [
+                [
+                    'id' => 2
+                ],
+                [
+                    'id' => 1
+                ]
+            ]
+        ]);
+    }
+
+    public function testIfReturnDataOrderedAsc (): void
+    {
+        $user = User::factory()->create();
+        Article::factory()->create();
+        Comment::factory()->create([
+            'content' => 'Commentaire #1',
+        ]);
+        Comment::factory()->create([
+            'content' => 'Commentaire #2',
+        ]);
+
+        $request = $this->get('/api/comments/1?orderby=asc');
+        $request->assertStatus(200);
+        $request->assertJson([
+            'status' => 200,
+            'data' => [
+                [
+                    'id' => 1
+                ],
+                [
+                    'id' => 2
+                ]
+            ]
         ]);
     }
 
