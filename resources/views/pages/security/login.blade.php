@@ -3,6 +3,19 @@
 @section('title', 'Se connecter')
 
 @section('body')
+    <style>
+        @media screen and (max-width: 540px) {
+            .bottom-elements {
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            .bottom-elements .text-right {
+                text-align: left;
+            }
+        }
+    </style>
+
     <div class="register-container">
         <div class="form-centered-card">
             <h1 style="margin-bottom: .5rem;">Se connecter</h1>
@@ -36,7 +49,7 @@
                     @enderror
                 </div>
 
-                <div class="field is-flex is-justify-content-space-between">
+                <div class="field is-flex is-justify-content-space-between bottom-elements">
                     <label>
                         <input type="checkbox" name="remember_me">
                         Se souvenir de moi

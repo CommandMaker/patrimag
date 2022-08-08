@@ -63,12 +63,12 @@ header.app-header nav.app-header__navbar div.app-header__links-container {
 
 // Links container scrollbar style
 //================
-header.app-header nav.app-header__navbar div.app-header__links-container::-webkit-scrollbar {
+header.app-header nav.app-header__navbar div.app-header__content::-webkit-scrollbar {
     background: transparent;
     height: 3px;
 }
 
-header.app-header nav.app-header__navbar div.app-header__links-container::-webkit-scrollbar-thumb {
+header.app-header nav.app-header__navbar div.app-header__content::-webkit-scrollbar-thumb {
     background: var(--primary-color);
     border-radius: 4px;
 }
@@ -159,7 +159,6 @@ header.app-header nav.app-header__navbar a.app-header__link.icon i {
 // Image title size style
 //================
 @media screen and (max-width: 440px) {
-
     header.app-header nav.app-header__navbar .app-header__content {
         gap: $links-gap;
     }
@@ -167,5 +166,11 @@ header.app-header nav.app-header__navbar a.app-header__link.icon i {
     header.app-header nav.app-header__navbar a.app-header__title-link img {
         width: 45vw;
         height: auto;
+    }
+}
+
+@media screen and (max-width: 815px) {
+    header.app-header nav.app-header__navbar .app-header__content {
+        gap: $links-gap;
     }
 }
