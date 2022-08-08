@@ -64,16 +64,16 @@ class APICommentControllerTest extends TestCase
             'status' => 200,
             'data' => [
                 [
-                    'id' => 2
+                    'id' => 2,
                 ],
                 [
-                    'id' => 1
-                ]
-            ]
+                    'id' => 1,
+                ],
+            ],
         ]);
     }
 
-    public function testIfReturnDataOrderedAsc (): void
+    public function testIfReturnDataOrderedAsc(): void
     {
         $user = User::factory()->create();
         Article::factory()->create();
@@ -90,12 +90,12 @@ class APICommentControllerTest extends TestCase
             'status' => 200,
             'data' => [
                 [
-                    'id' => 1
+                    'id' => 1,
                 ],
                 [
-                    'id' => 2
-                ]
-            ]
+                    'id' => 2,
+                ],
+            ],
         ]);
     }
 
