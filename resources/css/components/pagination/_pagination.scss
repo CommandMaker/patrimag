@@ -6,15 +6,21 @@
 nav.pagination-links-container {
     display: flex;
     justify-content: center;
+    
+    width: 100%;
+    position: relative;
 }
 
 // Links list style
 //================
 nav.pagination-links-container ul.pagination-list {
     display: flex;
+    justify-content: center;
 
     gap: 10px;
     list-style-type: none;
+
+    width: 100%;
 }
 
 // Link container style
