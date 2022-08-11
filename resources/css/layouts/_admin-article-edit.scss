@@ -1,0 +1,35 @@
+// Admin article edit layout style
+//================
+
+// Sticky Header style
+//================
+.article-edit-header {
+    position: sticky;
+    top: 0;
+    width: 100%;
+    z-index: 999999;
+
+    background: var(--contrast-text-color);
+}
+
+// Button & title reset
+//================
+.article-edit-header h2 {
+    margin: 1.5rem 0;
+}
+
+.article-edit-header button {
+    height: fit-content;
+}
+
+// Hide content textarea by default
+//================
+textarea.admin-content {
+    display: none;
+}
+
+p.label {
+    font-weight: 600;
+    margin-bottom: .7rem;
+
+}

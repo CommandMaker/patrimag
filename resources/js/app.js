@@ -7,3 +7,5 @@ import './flashes/flashes';
 import './comments/md-editor';
 import './comments/comment-view';
 
+import './admin/admin-article-edit';
+

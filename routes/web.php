@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\Admin\AdminArticleController;
+use App\Http\Controllers\Admin\AdminIndexController;
+use App\Http\Controllers\Admin\AdminUserController;
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\IndexController;
 use App\Http\Controllers\Security\PasswordResetController;
@@ -44,3 +47,17 @@ Route::get('/logout', [SecurityController::class, 'logout'])->name('security.log
 
 Route::get('/profil', [SecurityController::class, 'profilePage'])->middleware('auth')->name('security.profile');
 Route::post('/profil', [SecurityController::class, 'editProfile'])->middleware('auth')->name('security.edit-profile');
+
+/* Administration */
+Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
+    Route::get('/', [AdminIndexController::class, 'index'])->name('admin.index');
+    Route::get('/users', [AdminUserController::class, 'list'])->name('admin.users.show-all');
+
+    /* Article management */
+    Route::get('/articles', [AdminArticleController::class, 'list'])->name('admin.article.show-all');
+    Route::get('/article/create', [AdminArticleController::class, 'createView'])->name('admin.article.create');
+    Route::get('/article/{id}/edit', [AdminArticleController::class, 'editView'])->whereNumber('id')->name('admin.article.edit-view');
+    Route::post('/article/{id}/edit', [AdminArticleController::class, 'edit'])->whereNumber('id')->name('admin.article.edit');
+
+    Route::delete('/article/{id}/delete', [AdminArticleController::class, 'delete'])->whereNumber('id')->name('admin.article.delete');
+});

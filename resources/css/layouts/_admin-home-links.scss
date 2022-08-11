@@ -1,0 +1,36 @@
+// Admin home links grid style
+//================
+.admin-links-grid {
+    width: 100%;
+
+    display: grid;
+    grid-template-columns: repeat(auto-fit, 250px);
+    gap: 35px;
+    justify-content: center;
+}
+
+.admin-links-grid .bordered-card {
+    width: 250px;
+    height: 250px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    justify-content: center;
+    align-items: center;
+
+    color: var(--primary-title-color);
+
+    margin-bottom: 0;
+
+    @extend .link-without-animation;
+}
+
+.admin-links-grid .bordered-card .card-title {
+    text-align: center;
+}
+
+.admin-links-grid .bordered-card .card-icon i {
+    font-size: 120px;
+    text-align: center;
+}

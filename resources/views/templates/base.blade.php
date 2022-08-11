@@ -6,8 +6,8 @@
             content="width=device-width, initial-scale=1.0">
         <title>@yield('title') - PatriMag</title>
 
-        <link rel="stylesheet" href="/css/app.css">
-        <link rel="stylesheet" href="/css/easymde.min.css">
+        <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/easymde.min.css') }}">
         {!! NoCaptcha::renderJs() !!}
     </head>
     <body>
@@ -37,6 +37,6 @@
             @endif
         </div>
 
-        <script src="/js/app.js"></script>
+        <script src="{{ asset('js/app.js') }}"></script>
     </body>
 </html>
