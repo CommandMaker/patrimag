@@ -2,24 +2,20 @@
 
 namespace Tests\Feature\Http\Controller\Admin;
 
-use Tests\TestCase;
-use App\Models\User;
 use App\Models\Article;
-use Illuminate\Foundation\Testing\WithFaker;
+use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Http\UploadedFile;
-use Storage;
+use Tests\TestCase;
 
 class AdminArticleControllerTest extends TestCase
 {
-
     use RefreshDatabase;
 
     public function testIfErrorWhenDeleteNonExistentArticle(): void
     {
         /** @var User $user */
         $user = User::factory()->create([
-            'is_admin' => true
+            'is_admin' => true,
         ]);
 
         $response = $this
@@ -34,7 +30,7 @@ class AdminArticleControllerTest extends TestCase
     {
         /** @var User $user */
         $user = User::factory()->create([
-            'is_admin' => true
+            'is_admin' => true,
         ]);
         Article::factory()->create();
 
@@ -50,7 +46,7 @@ class AdminArticleControllerTest extends TestCase
     {
         /** @var User $user */
         $user = User::factory()->create([
-            'is_admin' => true
+            'is_admin' => true,
         ]);
 
         $response = $this
@@ -65,7 +61,7 @@ class AdminArticleControllerTest extends TestCase
     {
         /** @var User $user */
         $user = User::factory()->create([
-            'is_admin' => true
+            'is_admin' => true,
         ]);
         Article::factory()->create();
 
@@ -73,7 +69,7 @@ class AdminArticleControllerTest extends TestCase
             ->actingAs($user)
             ->post('/admin/article/1/edit', [
                 'content' => 'hello',
-                'description' => 'hello'
+                'description' => 'hello',
             ]);
 
         $response->assertRedirect();

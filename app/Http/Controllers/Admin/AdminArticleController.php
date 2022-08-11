@@ -2,23 +2,22 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Models\Article;
-use Illuminate\Http\Request;
-use Illuminate\Contracts\View\View;
 use App\Http\Controllers\Controller;
+use App\Models\Article;
 use Cocur\Slugify\Slugify;
+use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use Storage;
 
 class AdminArticleController extends Controller
 {
-
     public function list(): View
     {
         $articles = Article::paginate(20);
 
         return view('pages.admin.articles.articles-list', [
-            'articles' => $articles
+            'articles' => $articles,
         ]);
     }
 
@@ -33,7 +32,7 @@ class AdminArticleController extends Controller
             'title' => 'required|string|min:5|unique:articles,title',
             'content' => 'required|string|min:10',
             'description' => 'required|string|min:10',
-            'image' => 'required|image'
+            'image' => 'required|image',
         ], [
             'title.unique' => 'Un article avec ce titre existe déjà',
         ]);
@@ -48,13 +47,13 @@ class AdminArticleController extends Controller
             'content' => $request->content,
             'author_id' => auth()->user()->id,
             'likes' => 0,
-            'dislikes' => 0
+            'dislikes' => 0,
         ]);
 
         return redirect()->route('admin.article.show-all')->with('success', 'L\'article a bien été créé !');
     }
 
-    public function editView(int $id): View
+    public function editView(int $id): View|RedirectResponse
     {
         $article = Article::find($id);
 
@@ -65,7 +64,7 @@ class AdminArticleController extends Controller
         // $article->content = self::br2nl($article->content);
 
         return view('pages.admin.articles.article-edit', [
-            'article' => $article
+            'article' => $article,
         ]);
     }
 
@@ -81,7 +80,7 @@ class AdminArticleController extends Controller
             'title' => 'required|string|min:5',
             'content' => 'required|string|min:10',
             'description' => 'required|string|min:10',
-            'image' => 'image'
+            'image' => 'image',
         ], [
             'title.unique' => 'Un article avec ce titre existe déjà',
         ]);
@@ -99,7 +98,6 @@ class AdminArticleController extends Controller
             'content' => $request->content,
             'image' => $imagePath,
         ]);
-
 
         return redirect()->route('admin.article.show-all')->with('success', 'L\'article a bien été édité !');
     }
