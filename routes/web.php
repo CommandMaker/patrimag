@@ -60,4 +60,5 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     Route::post('/article/{id}/edit', [AdminArticleController::class, 'edit'])->whereNumber('id')->name('admin.article.edit');
 
     Route::delete('/article/{id}/delete', [AdminArticleController::class, 'delete'])->whereNumber('id')->name('admin.article.delete');
+    Route::post('/article/{id}/restore', [AdminArticleController::class, 'restore'])->whereNumber('id')->name('admin.article.restore');
 });

@@ -12,12 +12,16 @@ use Storage;
 
 class AdminArticleController extends Controller
 {
-    public function list(): View
+    public function list(Request $request): View
     {
         $articles = Article::paginate(20);
 
+        if (strtolower($request->get('show')) === 'all') {
+            $articles = Article::withTrashed()->paginate(20);
+        }
+
         return view('pages.admin.articles.articles-list', [
-            'articles' => $articles,
+            'articles' => $articles
         ]);
     }
 
@@ -44,7 +48,7 @@ class AdminArticleController extends Controller
             'slug' => $slugify->slugify($request->title),
             'description' => $request->description,
             'image' => $imagePath,
-            'content' => $request->content,
+            'content' => $request->input('content'),
             'author_id' => auth()->user()->id,
             'likes' => 0,
             'dislikes' => 0,
@@ -55,13 +59,11 @@ class AdminArticleController extends Controller
 
     public function editView(int $id): View|RedirectResponse
     {
-        $article = Article::find($id);
+        $article = Article::withTrashed()->find($id);
 
         if (!$article) {
             return back()->with('error', 'L\'article n\'existe pas !');
         }
-
-        // $article->content = self::br2nl($article->content);
 
         return view('pages.admin.articles.article-edit', [
             'article' => $article,
@@ -70,7 +72,7 @@ class AdminArticleController extends Controller
 
     public function edit(Request $request, int $id, Slugify $slugify): RedirectResponse
     {
-        $article = Article::find($id);
+        $article = Article::withTrashed()->find($id);
 
         if (!$article) {
             return back()->with('error', 'L\'article n\'existe pas !');
@@ -95,7 +97,7 @@ class AdminArticleController extends Controller
             'title' => $request->title,
             'slug' => $slugify->slugify($request->title),
             'description' => $request->description,
-            'content' => $request->content,
+            'content' => $request->input('content'),
             'image' => $imagePath,
         ]);
 
@@ -113,5 +115,18 @@ class AdminArticleController extends Controller
         $article->delete();
 
         return back()->with('success', 'L\'article a bien été supprimé');
+    }
+
+    public function restore(int $id): RedirectResponse
+    {
+        $article = Article::withTrashed()->find($id);
+
+        if (!$article) {
+            return back()->with('error', 'L\'article spécifié n\'existe pas !');
+        }
+
+        $article->restore();
+
+        return back()->with('success', 'L\'article a bien été restoré !');
     }
 }
