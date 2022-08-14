@@ -19,7 +19,7 @@ const editor = new EasyMDE({
                 const cm = editor.codemirror;
                 let output = '';
                 const selectedText = cm.getSelection() || '';
-
+                
                 output = `<sup>${selectedText}</sup>`;
                 cm.replaceSelection(output);
             },
@@ -32,7 +32,7 @@ const editor = new EasyMDE({
                 const cm = editor.codemirror;
                 let output = '';
                 const selectedText = cm.getSelection() || '';
-
+                
                 output = `<sub>${selectedText}</sub>`;
                 cm.replaceSelection(output);
             },
@@ -54,4 +54,30 @@ const editor = new EasyMDE({
         '|',
         'guide'
     ],
+});
+
+const editorEventElement = document.querySelector('.editor-toolbar');
+const sectionHeader = document.querySelector('.article-edit-header');
+
+const onClassChange = (element, callback) => {
+    const observer = new MutationObserver((mutations) => {
+        mutations.forEach((mutation) => {
+            if (
+                mutation.type === 'attributes' &&
+                mutation.attributeName === 'class'
+                ) {
+                    callback(mutation.target);
+                }
+            });
+        });
+    observer.observe(element, { attributes: true });
+    return observer.disconnect;
+}
+    
+onClassChange(editorEventElement, (target) => {
+    if (target.classList.contains('fullscreen')) {
+        sectionHeader.style.display = 'none';
+    } else if (!target.classList.contains('fullscreen')) {
+        sectionHeader.style.display = 'flex';
+    }
 });

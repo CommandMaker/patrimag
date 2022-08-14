@@ -11,7 +11,7 @@
         {{ $articles->links() }}
 
         <div class="text-right" style="margin-bottom: 0.7rem;">
-            <a href="{{ route('admin.article.create') }}" class="button link-without-animation">Créer un article</a>
+            <a href="{{ route('admin.article.create-view') }}" class="button link-without-animation">Créer un article</a>
         </div>
 
         <div class="text-right">

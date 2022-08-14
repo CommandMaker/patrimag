@@ -55,7 +55,8 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
 
     /* Article management */
     Route::get('/articles', [AdminArticleController::class, 'list'])->name('admin.article.show-all');
-    Route::get('/article/create', [AdminArticleController::class, 'createView'])->name('admin.article.create');
+    Route::get('/article/create', [AdminArticleController::class, 'createView'])->name('admin.article.create-view');
+    Route::post('/article/create', [AdminArticleController::class, 'create'])->name('admin.article.create');
     Route::get('/article/{id}/edit', [AdminArticleController::class, 'editView'])->whereNumber('id')->name('admin.article.edit-view');
     Route::post('/article/{id}/edit', [AdminArticleController::class, 'edit'])->whereNumber('id')->name('admin.article.edit');
 

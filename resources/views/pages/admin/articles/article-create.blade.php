@@ -3,6 +3,7 @@
 @section('title', 'Créer un article')
 
 @section('body')
+    @parent
     <div class="container">
         <div class="article-edit-header is-flex is-flex-direction-row is-justify-content-space-between is-align-items-center">
             <h2>Créer un article</h2>
@@ -10,7 +11,7 @@
             <button form="edit-article-form" type="submit" class="button">Sauvegarder</button>
         </div>
 
-        <form action="" id="edit-article-form" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('admin.article.create') }}" id="edit-article-form" method="POST" enctype="multipart/form-data">
             @csrf
 
             <div class="field">
