@@ -9,7 +9,7 @@
         <div @if (count($articles)) class="home-grid-view-container" @endif>
             @forelse ($articles as $article)
             <a href="{{ route('article.show-one', ['id' => $article->id, 'slug' => $article->slug]) }}" class="card home-grid-view-item" role="article">
-                <img src="{{ $article->image }}" alt="{{ $article->title }}" class="card-img">
+                <img src="{{ Storage::url($article->image) }}" alt="{{ $article->title }}" class="card-img">
                 <div class="card-body">
                     <p class="card-title">{{ Str::limit($article->title, 50) }}</p>
                     <p class="card-description">{{ Str::limit($article->description, 68) }}</p>

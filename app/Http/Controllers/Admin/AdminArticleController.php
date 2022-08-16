@@ -87,7 +87,7 @@ class AdminArticleController extends Controller
             'title.unique' => 'Un article avec ce titre existe déjà',
         ]);
 
-        if ($request->image) {
+        if ($request->image && explode('/', $article->image)[1] !== 'generic-image.jpg') {
             Storage::disk('public')->delete($article->image);
         }
 
