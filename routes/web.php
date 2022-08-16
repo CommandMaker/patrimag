@@ -51,7 +51,6 @@ Route::post('/profil', [SecurityController::class, 'editProfile'])->middleware('
 /* Administration */
 Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     Route::get('/', [AdminIndexController::class, 'index'])->name('admin.index');
-    Route::get('/users', [AdminUserController::class, 'list'])->name('admin.users.show-all');
 
     /* Article management */
     Route::get('/articles', [AdminArticleController::class, 'list'])->name('admin.article.show-all');
@@ -62,4 +61,11 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
 
     Route::delete('/article/{id}/delete', [AdminArticleController::class, 'delete'])->whereNumber('id')->name('admin.article.delete');
     Route::post('/article/{id}/restore', [AdminArticleController::class, 'restore'])->whereNumber('id')->name('admin.article.restore');
+
+    /* User Management */
+    Route::get('/users', [AdminUserController::class, 'list'])->name('admin.user.show-all');
+    Route::post('/user/{id}/ban', [AdminUserController::class, 'ban'])->whereNumber('id')->name('admin.user.ban');
+    Route::post('/user/{id}/unban', [AdminUserController::class, 'unban'])->whereNumber('id')->name('admin.user.unban');
+    Route::post('/user/{id}/suspend', [AdminUserController::class, 'suspend'])->whereNumber('id')->name('admin.user.suspend');
+    Route::post('/user/{id}/unsuspend', [AdminUserController::class, 'unsuspend'])->whereNumber('id')->name('admin.user.unsuspend');
 });

@@ -13,8 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('articles', function (Blueprint $table) {
-            $table->softDeletes()->after('dislikes');
+        Schema::table('users', function (Blueprint $table) {
+            $table->boolean('is_suspended')->default(false);
         });
     }
 

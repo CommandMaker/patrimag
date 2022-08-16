@@ -21,7 +21,7 @@ class AdminArticleController extends Controller
         }
 
         return view('pages.admin.articles.articles-list', [
-            'articles' => $articles
+            'articles' => $articles,
         ]);
     }
 

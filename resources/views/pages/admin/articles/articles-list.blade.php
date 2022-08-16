@@ -25,13 +25,13 @@
         <div style="overflow: auto;">
             <table class="table table-striped">
                 <thead>
-                <tr>
-                    <th scope="col">ID</th>
-                    <th scope="col">Titre</th>
-                    <th scope="col">Auteur</th>
-                    <th scope="col">Date de création</th>
-                    <th scope="col">Actions</th>
-                </tr>
+                    <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">Titre</th>
+                        <th scope="col">Auteur</th>
+                        <th scope="col">Date de création</th>
+                        <th scope="col">Actions</th>
+                    </tr>
                 </thead>
                 <tbody>
                     @foreach($articles as $article)

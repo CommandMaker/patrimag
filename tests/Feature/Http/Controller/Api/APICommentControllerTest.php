@@ -5,10 +5,13 @@ namespace Tests\Feature\Http\Controller\Api;
 use App\Models\Article;
 use App\Models\Comment;
 use App\Models\User;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
 class APICommentControllerTest extends TestCase
 {
+    use RefreshDatabase;
+
     public function testIfThrowErrorWhenNonExistentArticle(): void
     {
         $response = $this->getJson('/api/comments/1');
@@ -23,12 +26,16 @@ class APICommentControllerTest extends TestCase
     public function testIfReturnExpectedValue(): void
     {
         $user = User::factory()->create();
-        Article::factory()->create();
+        Article::factory()->create([
+            'author_id' => 1,
+        ]);
         Comment::factory()->create([
             'content' => 'Commentaire #1',
+            'author_id' => 1,
         ]);
         Comment::factory()->create([
             'content' => 'Commentaire #2',
+            'author_id' => 1,
         ]);
 
         $response = $this->getJson('/api/comments/1?orderby=asc');

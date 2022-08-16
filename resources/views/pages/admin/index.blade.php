@@ -11,7 +11,7 @@
                 <p class="card-icon"><i class="ri-newspaper-line"></i></p>
                 <p class="card-title">Gérer les articles</p>
             </a>
-            <a href="{{ route('admin.users.show-all') }}" class="bordered-card">
+            <a href="{{ route('admin.user.show-all') }}" class="bordered-card">
                 <p class="card-icon"><i class="ri-user-line"></i></p>
                 <p class="card-title">Gérer les utilisateurs</p>
             </a>
