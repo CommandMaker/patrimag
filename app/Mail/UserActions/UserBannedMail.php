@@ -32,6 +32,6 @@ class UserBannedMail extends Mailable
             'user' => $this->user,
         ])
             ->subject('Bannissement de votre compte Patri-Mag')
-            ->from('accounts@patrimag.tk');
+            ->from('accounts@patrimag.tk', 'Équipe des comptes Patri-Mag');
     }
 }

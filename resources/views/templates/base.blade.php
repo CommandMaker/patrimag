@@ -6,7 +6,12 @@
             content="width=device-width, initial-scale=1.0">
         <title>@yield('title') - PatriMag</title>
 
-        <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+        @if (config('app.env') === 'production')
+            <link rel="stylesheet" href="{{ asset('css/app.min.css') }}">
+        @else
+            <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+        @endif
+
         <link rel="stylesheet" href="{{ asset('css/easymde.min.css') }}">
         {!! NoCaptcha::renderJs() !!}
     </head>
@@ -37,6 +42,10 @@
             @endif
         </div>
 
-        <script src="{{ asset('js/app.js') }}"></script>
+        @if (config('app.env') === 'production')
+            <script src="{{ asset('js/app.min.js') }}"></script>
+        @else
+            <script src="{{ asset('js/app.js') }}"></script>
+        @endif
     </body>
 </html>

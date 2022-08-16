@@ -31,7 +31,7 @@ class RegisterMail extends Mailable
         return $this->view('mails.security.register-mail', [
             'user' => $this->user,
         ])
-            ->from('accounts@patrimag.tk', 'Équipe des comptes Patri-Mag')
-            ->subject('Activez votre compte Patri-Mag');
+            ->subject('Activez votre compte Patri-Mag')
+            ->from('accounts@patrimag.tk', 'Équipe des comptes Patri-Mag');
     }
 }

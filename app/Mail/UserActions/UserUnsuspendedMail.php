@@ -32,6 +32,6 @@ class UserUnsuspendedMail extends Mailable
             'user' => $this->user,
         ])
             ->subject('Levée de la suspension de votre compte Patri-Mag')
-            ->from('accounts@patrimag.tk');
+            ->from('accounts@patrimag.tk', 'Équipe des comptes Patri-Mag');
     }
 }

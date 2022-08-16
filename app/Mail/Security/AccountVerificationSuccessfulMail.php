@@ -32,7 +32,7 @@ class AccountVerificationSuccessfulMail extends Mailable
         return $this->view('mails.security.account-verification-successful-mail', [
             'user' => $this->user,
         ])
-            ->from('accounts@patrimag.tk', 'Équipe des comptes Patri-Mag')
-            ->subject('Merci d\'avoir activé votre compte');
+            ->subject('Merci d\'avoir activé votre compte')
+            ->from('accounts@patrimag.tk', 'Équipe des comptes Patri-Mag');
     }
 }

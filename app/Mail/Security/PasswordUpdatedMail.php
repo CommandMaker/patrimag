@@ -31,7 +31,7 @@ class PasswordUpdatedMail extends Mailable
         return $this->view('mails.security.password-updated-mail', [
             'user' => $this->user,
         ])
-            ->from('accounts@patrimag.tk', 'Équipe des comptes Patri-Mag')
-            ->subject('Alerte de sécurité ! Mot de passe modifié');
+            ->subject('Alerte de sécurité ! Mot de passe modifié')
+            ->from('accounts@patrimag.tk', 'Équipe des comptes Patri-Mag');
     }
 }
