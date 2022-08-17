@@ -151,6 +151,8 @@ class SecurityController extends Controller
                 'name' => $request->username,
                 'email' => $request->email,
             ]);
+
+            session()->put('success', 'Votre profil a bien été modifié');
         }
 
         if ($request->has('password')) {
