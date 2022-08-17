@@ -67,7 +67,7 @@ class SecurityController extends Controller
 
         Mail::to($user)->send(new RegisterMail($user));
 
-        return redirect()->route('security.login-view');
+        return redirect()->route('security.login-view')->with('success', 'Votre compte a bien été créé. Vérifiez votre boîte mail pour l\'activer');
     }
 
     public function verifyAccount(Request $request): RedirectResponse
@@ -78,7 +78,7 @@ class SecurityController extends Controller
         $user = User::find($u);
 
         if (!$u || !$token || !$user || $user->verify_token !== $token) {
-            return redirect()->route('security.login-view')->withErrors(['_email' => 'Le token ou l\'utilisateur n\'est pas valide !']);
+            return redirect()->route('security.login-view')->with('error', 'Le token ou l\'utilisateur n\'est pas valide !');
         }
 
         $user->update([
@@ -88,7 +88,7 @@ class SecurityController extends Controller
 
         Mail::to($user)->send(new AccountVerificationSuccessfulMail($user));
 
-        return redirect()->route('security.login-view');
+        return redirect()->route('security.login-view')->with('success', 'Votre compte a bien été activé');
     }
 
     public function loginView(): View
