@@ -9,7 +9,7 @@
 
 .flashes-container .flash {
     --flash-color: rgba(10, 10, 10, .3);
-
+    
     margin: 1rem 0;
     
     &.flash-success {
@@ -84,4 +84,10 @@
     100% {
         right: 0;
     }
+}
+
+@media screen and (max-width: 430px) { 
+    .flashes-container { 
+        width: var(--responsive-content-size); 
+    } 
 }
