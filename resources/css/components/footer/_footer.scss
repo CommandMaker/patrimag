@@ -1,0 +1,18 @@
+// App footer style
+//================
+footer.app-footer {
+    @extend .container;
+
+    border-top: 1px solid var(--borders-color);
+    padding: 1rem 0;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+// Icon style
+//================
+footer.app-footer a i {
+    font-size: 1.5rem;
+}

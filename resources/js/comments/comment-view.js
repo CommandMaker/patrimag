@@ -156,7 +156,7 @@ let page = 1;
     * Trigger comments fetch when user scroll to the bottom of the page
     */
     window.addEventListener('scroll', async (e) => {
-        if ((window.innerHeight + window.scrollY) <= document.body.offsetHeight) return;
+        if ((window.innerHeight + window.scrollY + 70) < document.body.scrollHeight) return;
         if (apiCalled) return;
         
         let orderBy = document.querySelector('#orderby');
