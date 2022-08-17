@@ -50,4 +50,15 @@
 
         <div class="comments" id="comments-container"></div>
     </section>
+
+        <script>
+            let user;
+
+            @if (auth()->user())
+                user = {!! auth()->user()->toJson() !!};
+            @endif
+            
+            const route = "{!! route('article.delete-comment') !!}";
+        </script>
+
 @endsection

@@ -26,7 +26,7 @@ Route::get('/', [IndexController::class, 'index'])->name('index.index');
 Route::get('/articles', [ArticleController::class, 'showAll'])->name('article.show-all');
 Route::get('/article/{id}/{slug}', [ArticleController::class, 'showOne'])->whereNumber('id')->name('article.show-one');
 Route::post('/article/{id}/submit-comment', [ArticleController::class, 'submitComment'])->whereNumber('id')->name('article.submit-comment');
-Route::delete('/article/delete-comment', [ArticleController::class, 'deleteComment'])->name('article.delete-comment');
+Route::get('/article/delete-comment', [ArticleController::class, 'deleteComment'])->name('article.delete-comment');
 
 /* Security */
 Route::middleware('guest')->group(function () {

@@ -64,21 +64,21 @@ class ArticleController extends Controller
         $cid = $request->cid;
 
         if (!$cid) {
-            return back()->withErrors(['msg' => 'Il est nécéssaire de spécifier un commentaire pour le supprimer']);
+            return back()->with('error', 'Il est nécéssaire de spécifier un commentaire pour le supprimer');
         }
 
         if (!auth()->user()) {
-            return back()->withErrors(['msg' => 'Je ne sais pas comment vous avez trouvé ça mais vous devez être connecté pour vous en servir !']);
+            return back()->with('error', 'Je ne sais pas comment vous avez trouvé ça mais vous devez être connecté pour vous en servir !');
         }
 
         $comment = Comment::find($cid);
 
         if (!$comment) {
-            return back()->withErrors(['msg' => 'Le commentaire spécifié n\'existe pas !']);
+            return back()->with('error', 'Le commentaire spécifié n\'existe pas !');
         }
 
         if ($comment->author_id !== auth()->user()->id) {
-            return back()->withErrors(['msg' => 'Ce n\'est pas bien de vouloir supprimer les commentaires des autres !']);
+            return back()->with('error', 'Ce n\'est pas bien de vouloir supprimer les commentaires des autres !');
         }
 
         $comment->delete();

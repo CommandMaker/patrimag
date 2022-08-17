@@ -14,6 +14,7 @@ class ArticleControllerTest extends TestCase
 
     public function testIfCreateCommentWhenAllValid(): void
     {
+        /** @var User */
         $user = User::factory()->create();
         Article::factory()->create();
 
@@ -40,6 +41,7 @@ class ArticleControllerTest extends TestCase
 
     public function testIfErrorSubmitCommentWithNonExistentArticleId(): void
     {
+        /** @var User */
         $user = User::factory()->create();
 
         $response = $this
@@ -54,6 +56,7 @@ class ArticleControllerTest extends TestCase
 
     public function testIfErrorCreateCommentWithSubmittedDataError(): void
     {
+        /** @var User */
         $user = User::factory()->create();
         Article::factory()->create();
 
@@ -70,6 +73,7 @@ class ArticleControllerTest extends TestCase
 
     public function testIfErrorCreateCommentWithoutData(): void
     {
+        /** @var User */
         $user = User::factory()->create();
         Article::factory()->create();
 
@@ -84,58 +88,66 @@ class ArticleControllerTest extends TestCase
 
     public function testIfErrorWhenDeleteCommentWithoutCommentId(): void
     {
-        $user = User::factory()->create();
-        Article::factory()->create();
-        Comment::factory()->create();
-
-        $response = $this->delete('/article/delete-comment');
-
-        $this->assertCount(1, Comment::all());
-        $response->assertSessionHasErrors(['msg' => 'Il est nécéssaire de spécifier un commentaire pour le supprimer']);
-        $response->assertRedirect();
-    }
-
-    public function testIfErrorWhenDeleteCommentWithoutAuthenticated(): void
-    {
-        $user = User::factory()->create();
-        Article::factory()->create();
-        Comment::factory()->create();
-
-        $response = $this->delete('/article/delete-comment?cid=1');
-
-        $this->assertCount(1, Comment::all());
-        $response->assertSessionHasErrors(['msg' => 'Je ne sais pas comment vous avez trouvé ça mais vous devez être connecté pour vous en servir !']);
-        $response->assertRedirect();
-    }
-
-    public function testIfErrorWhenDeleteCommentForNonExistingComment(): void
-    {
+        /** @var User */
         $user = User::factory()->create();
         Article::factory()->create();
         Comment::factory()->create();
 
         $response = $this
             ->actingAs($user)
-            ->delete('/article/delete-comment?cid=2');
+            ->get('/article/delete-comment');
+
+        $response->assertRedirect();
+        $response->assertSessionHas('error', 'Il est nécéssaire de spécifier un commentaire pour le supprimer');
+        $this->assertCount(1, Comment::all());
+    }
+
+    public function testIfErrorWhenDeleteCommentWithoutAuthenticated(): void
+    {
+        /** @var User */
+        $user = User::factory()->create();
+        Article::factory()->create();
+        Comment::factory()->create();
+
+        $response = $this->get('/article/delete-comment?cid=1');
+
+        $response->assertRedirect();
+        $response->assertSessionHas('error', 'Je ne sais pas comment vous avez trouvé ça mais vous devez être connecté pour vous en servir !');
+        $this->assertCount(1, Comment::all());
+    }
+
+    public function testIfErrorWhenDeleteCommentForNonExistingComment(): void
+    {
+        /** @var User */
+        $user = User::factory()->create();
+        Article::factory()->create();
+        Comment::factory()->create();
+
+        $response = $this
+            ->actingAs($user)
+            ->get('/article/delete-comment?cid=2');
 
         $this->assertCount(1, Comment::all());
-        $response->assertSessionHasErrors(['msg' => 'Le commentaire spécifié n\'existe pas !']);
+        $response->assertSessionHas('error', 'Le commentaire spécifié n\'existe pas !');
         $response->assertRedirect();
     }
 
     public function testIfErrorWhenDeleteCommentOfOther(): void
     {
-        $user1 = User::factory()->create();
+        /** @var User */
         $user = User::factory()->create();
+        $user1 = User::factory()->create();
         Article::factory()->create();
-        Comment::factory()->create();
+        Comment::factory()->create([
+            'author_id' => 2
+        ]);
 
         $response = $this
             ->actingAs($user)
-            ->delete('/article/delete-comment?cid=1');
+            ->get('/article/delete-comment?cid=1');
 
         $this->assertCount(1, Comment::all());
-        $response->assertSessionHasErrors(['msg' => 'Ce n\'est pas bien de vouloir supprimer les commentaires des autres !']);
+        $response->assertSessionHas('error', 'Ce n\'est pas bien de vouloir supprimer les commentaires des autres !');
         $response->assertRedirect();
     }
 }

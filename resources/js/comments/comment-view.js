@@ -97,7 +97,13 @@ let page = 1;
             
             let commentHeader = document.createElement('div');
             commentHeader.classList.add('comment-header');
-            commentHeader.innerHTML = `Écrit par <b>${e.author.name}</b> ${e.author.is_admin ? '(Administrateur)': ''} le ${createdAt.toLocaleDateString('fr-FR')} à ${createdAt.getHours() + ':' + createdAt.getMinutes()}`;
+            commentHeader.innerHTML = `<div class="is-flex is-justify-content-space-between is-align-items-center">
+                <p>Écrit par <b>${e.author.name}</b> ${e.author.is_admin ? '(Administrateur)': ''} le ${createdAt.toLocaleDateString('fr-FR')} à ${createdAt.getHours() + ':' + String(createdAt.getMinutes()).padStart(2, '0')}</p>
+            </div>`;
+
+            if (user && e.author.id === user.id) {
+                commentHeader.querySelector('div').innerHTML += `<a href="${route}?cid=${e.id}" class="link-without-animation"><i class="ri-delete-bin-line" style="color: rgb(var(--danger-color));font-size: 1.5rem"></i></a>`
+            }
             
             container.appendChild(commentHeader);
             
