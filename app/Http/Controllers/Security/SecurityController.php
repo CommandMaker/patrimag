@@ -103,6 +103,10 @@ class SecurityController extends Controller
             '_password' => 'string|max:255|required',
         ]);
 
+        if (!User::where('email', '=', $request->_email)->first()->email_verified_at) {
+            return back()->with('error', 'Vous devez vérifier votre email avant de pouvoir vous connecter');
+        }
+
         if (Auth::attempt(['email' => $credentials['_email'], 'password' => $credentials['_password']], remember: $request->remember_me)) {
             $request->session()->regenerate();
 
