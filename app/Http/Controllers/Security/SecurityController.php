@@ -27,7 +27,7 @@ class SecurityController extends Controller
     {
         $request->validate([
             '_email' => 'required|string|max:255|min:8',
-            '_username' => 'required|string|max:255|min:8'
+            '_username' => 'required|string|max:255|min:8',
         ]);
 
         if (User::withTrashed()->where('email', '=', $request->_email)->first() && User::withTrashed()->where('email', '=', $request->_email)->first()->trashed()) {
@@ -140,7 +140,7 @@ class SecurityController extends Controller
 
         if ($request->has('update')) {
             $credentials = $request->validate([
-                'username' => 'required|max:255|min:8|unique:users,email,' . $user->id,
+                'username' => 'required|max:255|min:8|unique:users,name,' . $user->id,
                 'email' => 'required|email|max:255|unique:users,email,' . $user->id,
             ], [
                 'username.unique' => 'Ce nom d\'utilisateur est déjà pris !',
@@ -173,6 +173,7 @@ class SecurityController extends Controller
             ]);
 
             Mail::to($user)->send(new PasswordUpdatedMail($user));
+            session()->put('success', 'Votre mot de passe a bien été modifié');
         }
 
         return back();

@@ -3,9 +3,9 @@
 namespace App\Http\Middleware;
 
 use Closure;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Illuminate\Http\RedirectResponse;
 
 class IsSuspendedOrBanned
 {
@@ -21,12 +21,14 @@ class IsSuspendedOrBanned
         if (auth()->user() && auth()->user()->trashed()) {
             session()->invalidate();
             session()->regenerateToken();
+
             return redirect()->route('security.login-view')->with('error', 'Ce compte a été banni, vous ne pouvez plus vous y connecter');
         }
 
         if (auth()->user() && auth()->user()->is_suspended) {
             session()->invalidate();
             session()->regenerateToken();
+
             return redirect()->route('security.login')->with('error', 'Ce compte a été suspendu, vous ne pouvez plus vous y connecter');
         }
 
