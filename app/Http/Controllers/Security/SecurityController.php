@@ -25,11 +25,32 @@ class SecurityController extends Controller
 
     public function register(Request $request): RedirectResponse
     {
+        $request->validate([
+            '_email' => 'required|string|max:255|min:8',
+            '_username' => 'required|string|max:255|min:8'
+        ]);
+
+        if (User::withTrashed()->where('email', '=', $request->_email)->first() && User::withTrashed()->where('email', '=', $request->_email)->first()->trashed()) {
+            return back()->with('error', 'Cet adresse mail a été bannie. Veuillez en choisir une autre');
+        }
+
+        if (User::withTrashed()->where('name', '=', $request->_username)->first() && User::withTrashed()->where('name', '=', $request->_username)->first()->trashed()) {
+            return back()->with('error', 'Ce nom d\'utilisateur a été banni. Veuillez en choisir un autre');
+        }
+
+        if (User::where('email', '=', $request->_email)->first() && User::where('email', '=', $request->_email)->first()->is_suspended) {
+            return back()->with('error', 'Cet adresse mail a été suspendu. Veuillez en choisir une autre');
+        }
+
+        if (User::where('name', '=', $request->_username)->first() && User::where('name', '=', $request->_username)->first()->is_suspended) {
+            return back()->with('error', 'Ce nom d\'utilisateur a été suspendu. Veuillez en choisir un autre');
+        }
+
         $credentials = $request->validate([
-            '_username' => 'required|max:255|min:8|unique:users,name',
-            '_email' => 'required|email|max:255|unique:users,email',
-            '_password' => 'required|max:255|min:8',
-            '_confirm-password' => 'required|max:255|min:8|same:_password',
+            '_username' => 'required|string|max:255|min:8|unique:users,name',
+            '_email' => 'required|string|email|max:255|unique:users,email',
+            '_password' => 'required|string|max:255|min:8',
+            '_confirm-password' => 'required|string|max:255|min:8|same:_password',
             'g-recaptcha-response' => 'required|captcha',
         ], [
             '_username.unique' => 'Ce nom d\'utilisateur est déjà pris !',

@@ -139,7 +139,7 @@ class ArticleControllerTest extends TestCase
         $user1 = User::factory()->create();
         Article::factory()->create();
         Comment::factory()->create([
-            'author_id' => 2
+            'author_id' => 2,
         ]);
 
         $response = $this
