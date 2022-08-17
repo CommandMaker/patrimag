@@ -6,7 +6,6 @@ use Cocur\Slugify\Slugify;
 use Illuminate\Container\Container;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
-use Storage;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Article>
