@@ -41,7 +41,7 @@ class AdminArticleController extends Controller
             'title.unique' => 'Un article avec ce titre existe déjà',
         ]);
 
-        $imagePath = $request->file('image')->store('articles_image');
+        $imagePath = $request->file('image')->store('articles_image', 'public');
 
         Article::create([
             'title' => $request->title,
