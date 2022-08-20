@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\AdminArticleController;
 use App\Http\Controllers\Admin\AdminIndexController;
 use App\Http\Controllers\Admin\AdminUserController;
 use App\Http\Controllers\ArticleController;
+use App\Http\Controllers\ContactController;
 use App\Http\Controllers\IndexController;
 use App\Http\Controllers\Security\PasswordResetController;
 use App\Http\Controllers\Security\SecurityController;
@@ -21,6 +22,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [IndexController::class, 'index'])->name('index.index');
+
+Route::get('/contact', [ContactController::class, 'view'])->name('contact.view');
 
 /* Articles view */
 Route::get('/articles', [ArticleController::class, 'showAll'])->name('article.show-all');
