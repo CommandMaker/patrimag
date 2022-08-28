@@ -14,6 +14,15 @@
 
         <link rel="stylesheet" href="{{ asset('css/easymde.min.css') }}">
         {!! NoCaptcha::renderJs() !!}
+
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-69FMMRXPWT"></script>
+        <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', '{{ config('app.gtag') }}');
+        </script>
     </head>
     <body>
         @yield('header', view('components.header._header'))

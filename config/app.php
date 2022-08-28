@@ -216,4 +216,6 @@ return [
         'NoCaptcha' => Anhskohbo\NoCaptcha\Facades\NoCaptcha::class,
     ])->toArray(),
 
+    'gtag' => env('GOOGLE_TAG', '')
+
 ];
