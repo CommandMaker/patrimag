@@ -6,7 +6,7 @@
             <div style="display: flex; gap: 20px;">
                 <div class="app-header__links-container">
                     <a href="{{ route('article.show-all') }}" class="app-header__link">Nos articles</a>
-                    <a href="#" class="app-header__link">Nous contacter</a>
+                    <a href="{{ route('contact.view') }}" class="app-header__link">Nous contacter</a>
                 </div>
             </div>
 

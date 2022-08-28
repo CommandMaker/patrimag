@@ -15,9 +15,9 @@ use Laravel\Sanctum\HasApiTokens;
  * @property int $id
  * @property string $name
  * @property string $email
- * @property \DateTime $email_verified_at
+ * @property \DateTime|null $email_verified_at
  * @property string $password
- * @property string $remember_token
+ * @property string|null $remember_token
  * @property \DateTime $created_at
  * @property \DateTime $updated_at
  */

@@ -40,6 +40,7 @@ class AdminUserController extends Controller
         }
 
         event(new UserBannedEvent($user));
+        $user->articles()->delete();
         $user->delete();
 
         return back()->with('success', 'L\'utilisateur a bien été banni !');
@@ -59,6 +60,7 @@ class AdminUserController extends Controller
 
         event(new UserUnbannedEvent($user));
         $user->restore();
+        $user->articles()->restore();
 
         return back()->with('success', 'L\'utilisateur a bien été débanni !');
     }
@@ -80,6 +82,7 @@ class AdminUserController extends Controller
         }
 
         event(new UserSuspendedEvent($user));
+        $user->articles()->delete();
         $user->update([
             'is_suspended' => true,
         ]);
@@ -100,6 +103,7 @@ class AdminUserController extends Controller
         }
 
         event(new UserUnsuspendedEvent($user));
+        $user->articles()->restore();
         $user->update([
             'is_suspended' => false,
         ]);

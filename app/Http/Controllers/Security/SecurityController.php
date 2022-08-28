@@ -103,7 +103,7 @@ class SecurityController extends Controller
             '_password' => 'string|max:255|required',
         ]);
 
-        if (User::where('email', '=', $request->_email)->first() && !User::where('email', '=', $request->_email)->first()->email_verified_at) {
+        if (User::where('email', '=', $request->input('_email'))->first() && !User::where('email', '=', $request->input('_email'))->first()->email_verified_at) {
             return back()->with('error', 'Vous devez vérifier votre email avant de pouvoir vous connecter');
         }
 
