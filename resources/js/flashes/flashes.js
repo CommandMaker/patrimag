@@ -17,11 +17,14 @@ const flashAnimation = () => {
     let flashes = flashesContainer.querySelectorAll('div.flash');
 
     flashes.forEach(f => {
+        let timeoutId;
+        timeoutId = setTimeout(() => {disappear(f)}, 6000);
+
         f.querySelector('div.close-container').addEventListener('click', () => {
             disappear(f);
+            clearTimeout(timeoutId);
         });
         
-        setTimeout(() => {disappear(f)}, 6000);
     });
 }
 

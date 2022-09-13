@@ -14,6 +14,7 @@ const mix = require('laravel-mix');
 mix.disableNotifications();
 
 mix.js('resources/js/app.js', mix.inProduction() ? 'public/js/app.min.js' : 'public/js')
+    .react()
     .sass('resources/css/app.scss', mix.inProduction() ? 'public/css/app.min.css' : 'public/css', {
         sassOptions : { outputStyle: mix.inProduction() ? 'compressed' : 'expanded' }
     })
