@@ -12,6 +12,29 @@
     padding: 1rem;
 }
 
+.comment.reply {
+    --size: 40px;
+    width: calc(100% - var(--size));
+    transform: translateX(var(--size));
+    position: relative;
+}
+
+.replies-container {
+    position: relative;
+    width: 100%;
+}
+
+.replies-container::before {
+    content: '';
+    position: absolute;
+    left: 15px;
+    top: 0;
+    bottom: 0;
+
+    width: 2px;
+    background: var(--borders-color);
+}
+
 // Comment header card style
 //================
 .comment .comment-header {
@@ -19,4 +42,36 @@
     padding-bottom: .7rem;
 
     border-bottom: 1px solid var(--borders-color);
+}
+
+.comment .comment-header .header-right {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+
+}
+
+.comment .comment-header .header-right button {
+    opacity: 1;
+    transition: opacity .1s ease-in-out;
+
+    outline: none;
+    border: none;
+    background: none;
+    font-size: 1.5rem;
+    height: 1.5rem;
+
+    color: var(--primary-text-color);
+    cursor: pointer;
+
+}
+
+// .comment:hover .comment-header .header-right button {
+//     opacity: 1;
+// }
+
+@media screen and (hover: none) and (pointer: coarse) {
+    .comment .comment-header .header-right button {
+        opacity: 1;
+    }
 }

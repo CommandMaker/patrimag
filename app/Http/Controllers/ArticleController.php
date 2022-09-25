@@ -47,13 +47,19 @@ class ArticleController extends Controller
         }
 
         $request->validate([
+            'parent' => 'integer|nullable',
             'comment_content' => 'string|required',
         ]);
+
+        if ($request->parent && !Article::find($request->parent)) {
+            return back()->with('error', 'La réponse est associée à un commentaire qui n\'existe pas');
+        }
 
         Comment::create([
             'content' => nl2br($request->comment_content),
             'article_id' => $id,
             'author_id' => auth()->user()->id,
+            'parent' => $request->parent ?? null,
         ]);
 
         return back()->with('success', 'Votre commentaire a bien été publié !');

@@ -4,8 +4,7 @@ import './auth/say-hello-to-user';
 
 import './flashes/flashes';
 
-import './comments/md-editor';
-import './comments/comment-view';
+import './comments/comments';
 
 import './admin/admin-article-edit';
 

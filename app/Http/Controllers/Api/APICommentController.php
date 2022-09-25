@@ -30,7 +30,10 @@ class APICommentController extends Controller
             ], 404);
         }
 
-        $comments = Comment::with('author')->orderBy('id', $orderby)->whereArticleId($id)->paginate(30);
+        $comments = Comment::orderBy('id', $orderby)
+            ->whereNull('parent')
+            ->whereArticleId($id)
+            ->paginate(30);
 
         return response()->json([
             'status' => 200,

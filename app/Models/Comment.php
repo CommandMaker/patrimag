@@ -5,12 +5,15 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Comment extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['content', 'article_id', 'author_id', 'created_at', 'updated_at'];
+    protected $fillable = ['content', 'article_id', 'author_id', 'created_at', 'updated_at', 'parent'];
+
+    protected $with = ['author', 'replies'];
 
     /**
      * Return the article corresponding to the comment
@@ -30,5 +33,13 @@ class Comment extends Model
     public function author(): BelongsTo
     {
         return $this->belongsTo(User::class);
+    }
+
+    /**
+     * @return HasMany<Comment>
+     */
+    public function replies(): HasMany
+    {
+        return $this->hasMany(Comment::class, 'parent');
     }
 }

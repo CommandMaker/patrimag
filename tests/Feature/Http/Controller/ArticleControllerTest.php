@@ -150,4 +150,26 @@ class ArticleControllerTest extends TestCase
         $response->assertSessionHas('error', 'Ce n\'est pas bien de vouloir supprimer les commentaires des autres !');
         $response->assertRedirect();
     }
+
+    public function testIfErrorWhenCreateCommentWithNonExistentParent(): void
+    {
+        /** @var User */
+        $user = User::factory()->create();
+        Article::factory()->create();
+        Comment::factory()->create([
+            'author_id' => 1,
+        ]);
+
+        $response = $this
+            ->actingAs($user)
+            ->post('/article/1/submit-comment', [
+                'comment_content' => 'Contenu d\'un commentaire',
+                'parent' => 10,
+            ]);
+
+        $response->assertRedirect();
+        $response->assertSessionHas('error', 'La réponse est associée à un commentaire qui n\'existe pas');
+
+        $this->assertCount(1, Comment::all());
+    }
 }

@@ -54,7 +54,7 @@ class Handler extends ExceptionHandler
         if ($e instanceof NotFoundHttpException && $request->wantsJson()) {
             return response()->json([
                 'status' => 404,
-                'message' => '404 Not Found'
+                'message' => '404 Not Found',
             ], 404);
         }
 

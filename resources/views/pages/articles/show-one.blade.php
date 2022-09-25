@@ -32,33 +32,22 @@
                 </div>
 
                 <div class="text-right">
-                    <button type="submit" class="button text-right">Publier</button>
+                    <button type="submit" class="button">Publier</button>
                 </div>
             </form>
         @endauth
 
-        <div class="is-flex is-align-items-center is-justify-content-space-between">
-            <h2 class="section-title" id="other-comments">Les autres commentaires</h2>
-            <div>
-                <label for="orderby">Trier par :</label>
-                <select id="orderby">
-                    <option value="desc">Les + récents</option>
-                    <option value="asc">Les + anciens</option>
-                </select>
-            </div>
-        </div>
-
-        <div class="comments" id="comments-container"></div>
+        <div id="comments-container"></div>
     </section>
 
-        <script>
-            let user;
+    <script>
+        let user;
 
-            @if (auth()->user())
-                user = {!! auth()->user()->toJson() !!};
-            @endif
-            
-            const route = "{!! route('article.delete-comment') !!}";
-        </script>
+        @if (auth()->user())
+            user = {!! auth()->user()->toJson() !!};
+        @endif
+        
+        const route = "{!! route('article.delete-comment') !!}";
+    </script>
 
 @endsection
