@@ -18,7 +18,6 @@ const Comment = memo(({articleId, commentId, content, author, created_at, onRepl
 
     const renderReplies = () => {
         let el = [];
-        console.log('renderReplies');
 
         const cancelEdition = useCallback(() => {
             setInEdit(false);

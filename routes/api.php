@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\Api\APICommentController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,4 +13,3 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/comments/{id}', [APICommentController::class, 'getComments'])->whereNumber('id')->name('api.article-comments');

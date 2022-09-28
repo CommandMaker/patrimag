@@ -1,14 +1,15 @@
 <?php
 
-use App\Http\Controllers\Admin\AdminArticleController;
-use App\Http\Controllers\Admin\AdminIndexController;
-use App\Http\Controllers\Admin\AdminUserController;
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\IndexController;
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\ContactController;
-use App\Http\Controllers\IndexController;
-use App\Http\Controllers\Security\PasswordResetController;
+use App\Http\Controllers\Api\APICommentController;
+use App\Http\Controllers\Admin\AdminUserController;
+use App\Http\Controllers\Admin\AdminIndexController;
 use App\Http\Controllers\Security\SecurityController;
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\AdminArticleController;
+use App\Http\Controllers\Security\PasswordResetController;
 
 /*
 |--------------------------------------------------------------------------
@@ -72,3 +73,8 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     Route::post('/user/{id}/suspend', [AdminUserController::class, 'suspend'])->whereNumber('id')->name('admin.user.suspend');
     Route::post('/user/{id}/unsuspend', [AdminUserController::class, 'unsuspend'])->whereNumber('id')->name('admin.user.unsuspend');
 });
+
+/* Article API */
+Route::get('/api/comments/{id}', [APICommentController::class, 'getComments'])->whereNumber('id')->name('api.comments.get');
+Route::post('/api/comments/new/{id}', [APICommentController::class, 'addComment'])->whereNumber('id')->name('api.comments.new');
+Route::delete('/api/comments/delete/{id}', [APICommentController::class, 'deleteComment'])->whereNumber('id')->name('api.comments.delete');
