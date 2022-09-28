@@ -1,7 +1,7 @@
 /**
  * Display a flash in the app
  * 
- * @param {string} type Type of flash. Can be 'success' or 'error' 
+ * @param {string} type Type of flash. Can be 'success' or 'danger' 
  * @param {string} message The message to display in the splash
  */
 const displayFlash = (type, message) => {
