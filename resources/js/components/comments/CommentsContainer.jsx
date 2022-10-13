@@ -1,9 +1,9 @@
-import { useState, useEffect } from 'react';
-import VisibilitySensor from 'react-visibility-sensor';
+import { useState, useCallback } from 'react';
+import { submitComment } from '../../api/comments';
+import { displayFlash } from '../../flashes/flash';
 
-import { fetchComments } from '../../api/comments';
-import { useAsyncEffect } from '../../hooks/hooks';
-import { Comment } from './Comment';
+import { CommentsView } from './CommentsView';
+import { CreateComments } from './CreateComments';
 
 /**
  * @returns JSX.Element
@@ -21,75 +21,25 @@ const CommentsContainer = ({ articleId }) => {
         comments: null
     });
 
-    useAsyncEffect(async () => {
-        if (state.page === 0) return;
-        const request = await fetchComments(articleId, state.page, state.orderBy);
+    const addComment = useCallback(async (e, content) => {
+        e.stopPropagation();
+        e.preventDefault();
 
-        setComments(s => ({ total: request.total, comments: state.page === 1 ? request.data : [...(s.comments || []), ...request.data] }));
-    }, [state]);
+        const request = await submitComment(articleId, content)
+            .then(res => {
+                if (!res) return;
 
-    /**
-     * @param {boolean} isVisible
-     */
-    const triggerCommentRender = (isVisible) => {
-        if (isVisible) {
-            setState(s => ({ page: s.page + 1 }));
-        }
-    }
-
-    const renderComments = () => {
-        let el = [];
-
-        if (comments.comments === null) {
-            return;
-        }
-
-        if (comments.comments.length === 0) {
-            return <div className="is-flex is-justify-content-center is-align-items-center is-flex-direction-column">
-                <h3 className="my-4">Aucun commentaire n'a encore été posté</h3>
-                <p>Soyez le premier à en poster un !</p>
-            </div>
-        }
-
-        comments.comments.forEach(c => {
-            el.push(
-                <Comment
-                    articleId={articleId}
-                    commentId={c.id}
-                    content={c.content}
-                    author={c.author}
-                    created_at={c.created_at}
-                    isReply={c.parent === true}
-                    replies={c.replies} key={c.id}
-                />
-            )
-        });
-
-        return el;
-    }
+                setState(s => ({ page: 1 }));
+                editor.value('');
+            })
+    }, []);
 
     return <>
-        <div className="is-flex is-align-items-center is-justify-content-space-between">
-            <h2 className="section-title" id="other-comments">Les autres commentaires ({comments.total})</h2>
-            <div style={{display: 'flex', gap: '10px'}}>
-                <label htmlFor="orderby">Trier par :</label>
-                <select id="orderby" onChange={e => {
-                    setState(s => ({ orderBy: e.target.value, page: 1 }));
-                    setComments(s => ({ comments: null }));
-                }}>
-                    <option value="desc">Les + récents</option>
-                    <option value="asc">Les + anciens</option>
-                </select>
-            </div>
-        </div>
+        <h2 className="section-title">L'article vous a plu ? Laissez-un commentaire !</h2>
 
-        {renderComments()}
+        <CreateComments onSubmit={addComment} />
 
-        <div className="is-flex is-justify-content-center"><div className="spinner-three-dots" /></div>
-
-        <VisibilitySensor onChange={triggerCommentRender}>
-            <div style={{height: '1px'}}>&nbsp;</div>
-        </VisibilitySensor>
+        <CommentsView articleId={articleId} comments={[comments, setComments]} state={[state, setState]} />
     </>
 };
 

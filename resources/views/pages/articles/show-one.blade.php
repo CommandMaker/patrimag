@@ -18,13 +18,13 @@
     <hr>
 
     <section class="comments-section">
-        <h2 class="section-title">L'article vous a plu ? Laissez-un commentaire !</h2>
+        {{-- <h2 class="section-title">L'article vous a plu ? Laissez-un commentaire !</h2>
 
         @guest
             <h3 class="auth-warn-comment">Vous devez être connecté pour poster un commentaire</h3>
         @endguest
         @auth
-            <form action="{{ route('article.submit-comment', ['id' => $article->id]) }}" method="POST">
+            <form id="newCommentForm" method="POST">
                 @csrf
                 <div class="field">
                     <label class="label" for="comment-md-editor">Votre commentaire</label>
@@ -37,7 +37,7 @@
             </form>
         @endauth
 
-        <div id="comments-container"></div>
+        <div id="comments-container"></div> --}}
     </section>
 
     <script>
@@ -46,8 +46,6 @@
         @if (auth()->user())
             user = {!! auth()->user()->toJson() !!};
         @endif
-        
-        const route = "{!! route('article.delete-comment') !!}";
     </script>
 
 @endsection

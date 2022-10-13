@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { Axios } from 'axios';
 import {displayFlash} from '../flashes/flash';
 
 /**
@@ -25,9 +26,46 @@ const fetchComments = async (articleId, page, orderBy) => {
     await axios.get(`${location.protocol}//${location.host}/api/comments/${articleId}?page=${page}&orderby=${order}`)
         .then(res => {
             data = res.data;
+        })
+        .catch(err => {
+            displayFlash('danger', `Erreur lors de la récupération des commentaires : ${err}`);
         });
 
     return data;
 }
 
-export {fetchComments};
+/**
+ * Add a new comment to the given article
+ * 
+ * @param {number} articleId The id of the article you want to publish the comment
+ * @param {string} content The content of the comment you want publish
+ * @param {number} parent The id of the parent comment (to add a reply)
+ * @returns {Promise<import('axios').AxiosResponse<any, any>>}
+ */
+const submitComment = async (articleId, content, parent = null) => {
+    return await axios.post(`${location.protocol}//${location.host}/api/comments/new/${articleId}`, {
+        'comment_content': content,
+        'parent': parent
+    })
+    .catch(err => {
+        if (err.response) {
+            switch (err.response.data.status) {
+                case 401:
+                    displayFlash('danger', err.response.data.msg);
+                    break;
+                case 500:
+                    if (err.response.data.errors) {
+                        err.response.data.errors.forEach(e => displayFlash('danger', `Erreur lors de l'ajout de votre commentaire : ${e}`));
+                    } else {
+                        displayFlash('danger', `Erreur lors de l'ajout de votre commentaire : ${err.response.data.msg}`);
+                    }
+                    break;
+                default:
+                    displayFlash('danger', `Erreur lors de l'ajout de votre commentaire : ${err}`);
+                    break;
+            }
+        }
+    });;
+}
+
+export {fetchComments, submitComment};

@@ -2,17 +2,12 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import CommentsContainer from '../components/comments/CommentsContainer';
 import EasyMDE from 'easymde';
+import { submitComment } from '../api/comments';
+import { displayFlash } from '../flashes/flash';
 
-const commentsContainer = document.querySelector('#comments-container');
+const commentsContainer = document.querySelector('section.comments-section');
 
 if (commentsContainer) {
-    const newCommentEditor = new EasyMDE({
-        element: document.querySelector('#comment-md-editor'),
-        toolbar: false,
-        status: false,
-        spellChecker: false
-    });
-
     /** @type {number}  */
     const articleId = Number.parseInt(document.querySelector('article.article').dataset.id);
 

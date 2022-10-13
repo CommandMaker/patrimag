@@ -1,5 +1,5 @@
 import EasyMDE from 'easymde';
-import React, {memo, useEffect} from 'react';
+import {memo, createRef, useEffect} from 'react';
 
 /**
  * @param {{articleId: number, commentId: number, onCancel: (e: React.MouseEvent) => void, onSubmit: (e: React.MouseEvent, content: string) => void }} param0
@@ -7,7 +7,7 @@ import React, {memo, useEffect} from 'react';
  * @return JSX.Element
  */
 const CommentEdit = memo(({articleId, commentId, onCancel, onSubmit}) => {
-    const editorRef = React.createRef();
+    const editorRef = createRef();
     /** @type {EasyMDE} */
     let editor;
 

@@ -66,17 +66,18 @@ class APICommentController extends Controller
         }
 
         $validator = Validator::make($request->only(['comment_content', 'parent']), [
-            'comment_content' => 'required|string|min:8',
+            'comment_content' => 'required|string|min:1',
             'parent' => 'nullable|integer|exists:comments,id'
         ], [
-            'parent.exists' => 'Aucun article ne correspond à cet identifiant parent'
+            'parent.exists' => 'Aucun article ne correspond à cet identifiant parent',
+            'comment_content.required' => 'Il est nécessaire de spécifier un contenu pour le commentaire'
         ]);
 
         if ($validator->fails()) {
             return response()->json([
                 'status' => 500,
                 'msg' => 'Fields validation error',
-                'errors' => $validator->errors()
+                'errors' => $validator->errors()->all()
             ], 500);
         }
 
@@ -91,7 +92,7 @@ class APICommentController extends Controller
 
         return response()->json([
             'status' => 201,
-            'data' => $comment
+            'data' => $comment->load('author', 'replies')
         ], 201);
     }
 

@@ -2,6 +2,8 @@ import { sanitize } from 'dompurify';
 import { marked } from 'marked';
 import { memo, useCallback, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
+import { submitComment } from '../../api/comments';
+import { displayFlash } from '../../flashes/flash';
 
 import { CommentEdit } from './CommentEdit';
 
@@ -11,25 +13,39 @@ import { CommentEdit } from './CommentEdit';
  *
  * @param {CommentProps} param0
  */
-const Comment = memo(({articleId, commentId, content, author, created_at, onReplyAdded = null, isReply = false, replies = [],}) => {
+const Comment = memo(({articleId, commentId, content, author, created_at, onReplyAdded = null, isReply = false, replies = []}) => {
     let createdAt = new Date(created_at);
 
     const [inEdit, setInEdit] = useState(false);
 
+    /**
+     * @param {React.MouseEvent} e 
+     * @param {string} content The content of the comment
+     */
+    const submitReply = useCallback(async (e, content) => {
+        e.preventDefault();
+        e.stopPropagation();
+
+        await submitComment(articleId, content, commentId).then(res => {
+            if (!res) return;
+
+            setInEdit(false);
+
+            replies.push(res.data.data);
+
+            displayFlash('success', 'Votre commentaire a bien été publié');
+        });
+    }, []);
+
+    const cancelEdition = useCallback(() => {
+        setInEdit(false);
+    }, []);
+
     const renderReplies = () => {
         let el = [];
 
-        const cancelEdition = useCallback(() => {
-            setInEdit(false);
-        });
-
-        /**
-         * @param {React.MouseEvent} e 
-         * @param {string} content The content of the reply
-         */
-        const submitReply = (e, content) => {
-            e.preventDefault();
-            e.stopPropagation();
+        if (replies.length === 0 && inEdit !== true) {
+            return null;
         }
 
         replies.forEach(r => {
@@ -97,7 +113,7 @@ const Comment = memo(({articleId, commentId, content, author, created_at, onRepl
             </div>
             <div className="comment-body" dangerouslySetInnerHTML={{__html: sanitize(marked.parse(content))}} />
         </div>
-        {!isReply && replies.length !== 0 ? <div className="replies-container">{renderReplies()}</div> : null}
+        {!isReply ? <div className="replies-container">{renderReplies()}</div> : null}
     </>
 });
 

@@ -50,6 +50,12 @@ a {
     }
 }
 
+// Hide elements with .hidden class
+//================
+.hidden {
+    display: none!important;
+}
+
 hr {
     width: var(--responsive-content-size);
     max-width: var(--max-content-width);
