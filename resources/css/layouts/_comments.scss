@@ -9,3 +9,18 @@
     font-size: 1.5rem;
     font-weight: 700;
 }
+
+// Style for the section header on mobile
+//================
+@media screen and (max-width: 460px) {
+    .comments-section .section-header {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        margin-bottom: 1.5rem;
+    }
+
+    .comments-section .section-header .section-title {
+        margin-bottom: 1rem;
+    }
+}

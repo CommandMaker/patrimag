@@ -79,7 +79,7 @@ const CommentsView = ({comments, articleId, state}) => {
     }
 
     return <>
-        <div className="is-flex is-align-items-center is-justify-content-space-between">
+        <div className="is-flex is-align-items-center is-justify-content-space-between section-header">
             <h2 className="section-title" id="other-comments">Les autres commentaires ({comments[0].total})</h2>
             <div style={{display: 'flex', gap: '10px'}}>
                 <label htmlFor="orderby">Trier par :</label>
