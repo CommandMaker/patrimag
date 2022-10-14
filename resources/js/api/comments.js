@@ -65,7 +65,21 @@ const submitComment = async (articleId, content, parent = null) => {
                     break;
             }
         }
-    });;
+    });
 }
 
-export {fetchComments, submitComment};
+/**
+ * Delete a given comment
+ * 
+ * @param {number} commentId The id of the comment you want to delete
+ */
+const deleteCommentAPI = async (commentId) => {
+    return axios.delete(`${location.protocol}//${location.host}/api/comments/delete/${commentId}`)
+        .catch(err => {
+            if (err.response) {
+                displayFlash('danger', err.response.data.msg);
+            }
+        });
+}
+
+export {fetchComments, submitComment, deleteCommentAPI};

@@ -11,6 +11,13 @@ use Validator;
 
 class APICommentController extends Controller
 {
+
+    /**
+     * Get paginated comments from the database
+     * 
+     * @param int $id The id of the article
+     * @param Request $request The app request
+     */
     public function getComments(Request $request, int $id): JsonResponse
     {
         $page = $request->page;
@@ -45,6 +52,14 @@ class APICommentController extends Controller
         ]);
     }
 
+    /**
+     * Add a comment to the database
+     * 
+     * @param Request $request
+     * @param int $id The id of the article
+     * 
+     * @return JsonResponse
+     */
     public function addComment(Request $request, int $id): JsonResponse
     {
         $user = auth()->user();

@@ -52,7 +52,7 @@
 }
 
 .comment .comment-header .header-right button {
-    opacity: 1;
+    opacity: 0;
     transition: opacity .1s ease-in-out;
 
     outline: none;
@@ -63,12 +63,11 @@
 
     color: var(--primary-text-color);
     cursor: pointer;
-
 }
 
-// .comment:hover .comment-header .header-right button {
-//     opacity: 1;
-// }
+.comment:hover .comment-header .header-right button {
+    opacity: 1;
+}
 
 @media screen and (hover: none) and (pointer: coarse) {
     .comment .comment-header .header-right button {

@@ -21,15 +21,15 @@ const CommentsContainer = ({ articleId }) => {
         comments: null
     });
 
-    const addComment = useCallback(async (e, content) => {
+    const addComment = useCallback(async (e, editor) => {
         e.stopPropagation();
         e.preventDefault();
 
-        const request = await submitComment(articleId, content)
+        const request = await submitComment(articleId, editor.value())
             .then(res => {
                 if (!res) return;
 
-                setState(s => ({ page: 1 }));
+                setState(_ => ({ page: 1 }));
                 editor.value('');
             })
     }, []);

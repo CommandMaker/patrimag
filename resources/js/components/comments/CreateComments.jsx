@@ -4,7 +4,7 @@ import EasyMDE from 'easymde';
 /**
  * @return JSX.Element
  * 
- * @param {{onSubmit: (e: React.SyntheticEvent, content: string) => void}} param0
+ * @param {{onSubmit: (e: React.SyntheticEvent, editor: EasyMDE) => void}} param0
  */
 const CreateComments = memo(({onSubmit}) => {
     const mdEditorArea = createRef();
@@ -35,7 +35,7 @@ const CreateComments = memo(({onSubmit}) => {
             <button 
                 type="button" 
                 className="button" 
-                onClick={e => onSubmit(e, editor.value())}>Publier</button>
+                onClick={e => onSubmit(e, editor)}>Publier</button>
         </div>
     </div>
 });

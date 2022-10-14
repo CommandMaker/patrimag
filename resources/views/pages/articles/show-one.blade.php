@@ -17,28 +17,7 @@
 
     <hr>
 
-    <section class="comments-section">
-        {{-- <h2 class="section-title">L'article vous a plu ? Laissez-un commentaire !</h2>
-
-        @guest
-            <h3 class="auth-warn-comment">Vous devez être connecté pour poster un commentaire</h3>
-        @endguest
-        @auth
-            <form id="newCommentForm" method="POST">
-                @csrf
-                <div class="field">
-                    <label class="label" for="comment-md-editor">Votre commentaire</label>
-                    <textarea name="comment_content" id="comment-md-editor"></textarea>
-                </div>
-
-                <div class="text-right">
-                    <button type="submit" class="button">Publier</button>
-                </div>
-            </form>
-        @endauth
-
-        <div id="comments-container"></div> --}}
-    </section>
+    <section class="comments-section"></section>
 
     <script>
         let user;

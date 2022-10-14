@@ -1,24 +1,28 @@
+import React, { memo, useCallback, useState } from 'react';
 import { sanitize } from 'dompurify';
 import { marked } from 'marked';
-import { memo, useCallback, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
-import { submitComment } from '../../api/comments';
+
+import { deleteCommentAPI, submitComment } from '../../api/comments';
 import { displayFlash } from '../../flashes/flash';
 
 import { CommentEdit } from './CommentEdit';
 
 /**
  * @typedef {{id: number, name: string, email: string, is_admin: boolean}} CommentAuthor
- * @typedef {{articleId: number, commentId: number, content: string, author: CommentAuthor, created_at: string, onReplyAdded: ?() => void, isReply: boolean, replies: Array}} CommentProps
+ * @typedef {{articleId: number, commentId: number, content: string, author: CommentAuthor, created_at: string, onCommentDeleted: (e: React.SyntheticEvent, commentId: number) => void, isReply: boolean, replies: Array}} CommentProps
  *
  * @param {CommentProps} param0
  */
-const Comment = memo(({articleId, commentId, content, author, created_at, onReplyAdded = null, isReply = false, replies = []}) => {
+const Comment = memo(({articleId, commentId, content, author, created_at, onCommentDeleted, isReply = false, replies = []}) => {
     let createdAt = new Date(created_at);
 
     const [inEdit, setInEdit] = useState(false);
+    const [commentReplies, setReplies] = useState(replies);
 
     /**
+     * Submit a comment
+     * 
      * @param {React.MouseEvent} e 
      * @param {string} content The content of the comment
      */
@@ -31,24 +35,42 @@ const Comment = memo(({articleId, commentId, content, author, created_at, onRepl
 
             setInEdit(false);
 
-            replies.push(res.data.data);
-
             displayFlash('success', 'Votre commentaire a bien été publié');
+            setReplies(s => ([...s, res.data.data]));
         });
     }, []);
 
     const cancelEdition = useCallback(() => {
         setInEdit(false);
     }, []);
+    
+    /**
+     * Delete a comment
+     * 
+     * @param {React.SyntheticEvent} e
+     * @param {number} commentId
+     */
+    const deleteComment = (e, commentId) => {
+        e.preventDefault();
+        e.stopPropagation();
+
+        deleteCommentAPI(commentId)
+            .then(res => {
+                if (!res) return;
+
+                displayFlash('success', 'Votre commentaire a bien été supprimé');
+                setReplies(s => s.filter(r => r.id !== commentId));
+            });
+    }
 
     const renderReplies = () => {
         let el = [];
 
-        if (replies.length === 0 && inEdit !== true) {
+        if (commentReplies.length === 0 && inEdit !== true) {
             return null;
         }
 
-        replies.forEach(r => {
+        commentReplies.forEach(r => {
             el.push(
                 <Comment
                     articleId={articleId}
@@ -57,6 +79,7 @@ const Comment = memo(({articleId, commentId, content, author, created_at, onRepl
                     author={r.author}
                     created_at={r.created_at}
                     isReply={true}
+                    onCommentDeleted={deleteComment}
                     key={r.id}
                 />
             );
@@ -93,10 +116,9 @@ const Comment = memo(({articleId, commentId, content, author, created_at, onRepl
         return user ? <div className="is-flex is-justify-content-space-between is-align-items-center">
             <div className="header-right">
                 { !isReply ? <button type="button" className="reply-button" onClick={editComment}><i className="ri-share-forward-fill"/></button> : null }
-                {user.id === author.id ? <a href={`/article/delete-comment?cid=${commentId}`} className="link-without-animation" style={{
-                    fontSize: '1.5rem',
-                    color: 'rgb(var(--danger-color))'
-                }}><i className="ri-delete-bin-line"/></a> : null}
+                {user.id === author.id ? <button type="button" onClick={(e) => onCommentDeleted(e, commentId)} style={{
+                    color: 'rgba(var(--danger-color))'
+                }}><i className="ri-delete-bin-line"></i></button> : null}
             </div>
         </div>
         :

@@ -1,6 +1,8 @@
+import React from 'react'
 import VisibilitySensor from 'react-visibility-sensor';
 
-import { fetchComments } from '../../api/comments';
+import { deleteCommentAPI, fetchComments } from '../../api/comments';
+import { displayFlash } from '../../flashes/flash';
 import { useAsyncEffect } from '../../hooks/hooks';
 import { Comment } from './Comment';
 
@@ -26,10 +28,25 @@ const CommentsView = ({comments, articleId, state}) => {
         }
     }
 
+    /**
+     * @param {React.MouseEvent} e 
+     * @param {number} commentId 
+     */
+    const onCommentDeleted = (e, commentId) => {
+        e.preventDefault();
+        e.stopPropagation();
+
+        deleteCommentAPI(commentId)
+            .then(res => {
+                if (!res) return;
+
+                displayFlash('success', 'Votre commentaire a bien été supprimé');
+                comments[1](s => ({total: s.total - 1, comments: comments[0].comments.filter(co => co.id !== commentId)}));
+            });
+    };
+
     const renderComments = () => {
         let el = [];
-
-        console.log(comments[0].comments !== null && comments[0].comments.length === 0);
 
         if (comments[0].comments === null) {
             return;
@@ -52,6 +69,7 @@ const CommentsView = ({comments, articleId, state}) => {
                     created_at={c.created_at}
                     isReply={c.parent === true}
                     replies={c.replies}
+                    onCommentDeleted={onCommentDeleted}
                     key={c.id}
                 />
             )
