@@ -165,8 +165,6 @@ class APICommentControllerTest extends TestCase
             'status' => 500,
         ]);
 
-        dd($response->getContent());
-
         $this->assertCount(0, Comment::all());
     }
 
