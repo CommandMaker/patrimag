@@ -79,4 +79,8 @@
     .articles-table-view .article-row p.article-description {
         display: none;
     }
+
+    .articles-table-view .article-row img.article-img {
+        max-width: 100%;
+    }
 }
