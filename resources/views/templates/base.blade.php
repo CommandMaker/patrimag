@@ -6,11 +6,8 @@
             content="width=device-width, initial-scale=1.0">
         <title>@yield('title') - PatriMag</title>
 
-        @if (config('app.env') === 'production')
-            <link rel="stylesheet" href="{{ asset('css/app.min.css') }}">
-        @else
-            <link rel="stylesheet" href="{{ asset('css/app.css') }}">
-        @endif
+        @viteReactRefresh
+        @vite(['resources/css/app.scss', 'resources/js/app.js'])
 
         <link rel="stylesheet" href="{{ asset('css/easymde.min.css') }}">
         {!! NoCaptcha::renderJs() !!}
@@ -50,11 +47,5 @@
                 @endif
             @endif
         </div>
-
-        @if (config('app.env') === 'production')
-            <script src="{{ asset('js/app.min.js') }}"></script>
-        @else
-            <script src="{{ asset('js/app.js') }}"></script>
-        @endif
     </body>
 </html>

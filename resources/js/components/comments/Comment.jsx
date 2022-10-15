@@ -1,5 +1,5 @@
 import React, { memo, useCallback, useState } from 'react';
-import { sanitize } from 'dompurify';
+import DOMPurify from 'dompurify';
 import { marked } from 'marked';
 import { v4 as uuidv4 } from 'uuid';
 
@@ -133,7 +133,7 @@ const Comment = memo(({articleId, commentId, content, author, created_at, onComm
                     {displayRightSide()}
                 </div>
             </div>
-            <div className="comment-body" dangerouslySetInnerHTML={{__html: sanitize(marked.parse(content))}} />
+            <div className="comment-body" dangerouslySetInnerHTML={{__html: DOMPurify.sanitize(marked.parse(content))}} />
         </div>
         {!isReply ? <div className="replies-container">{renderReplies()}</div> : null}
     </>

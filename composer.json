@@ -10,7 +10,7 @@
         "cocur/slugify": "^4.1",
         "erusev/parsedown": "^1.7",
         "guzzlehttp/guzzle": "^7.2",
-        "laravel/framework": "^9.11",
+        "laravel/framework": "^9.19.0",
         "laravel/sanctum": "^3.0",
         "laravel/tinker": "^2.7"
     },

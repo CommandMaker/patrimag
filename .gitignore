@@ -25,3 +25,5 @@ nohup.out
 
 TODO.MD
 /.phpunit-watcher.yml
+
+/public/build
