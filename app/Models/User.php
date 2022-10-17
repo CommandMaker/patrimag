@@ -37,6 +37,7 @@ class User extends Authenticatable
         'verify_token',
         'email_verified_at',
         'is_suspended',
+        'is_subscribed_newsletter'
     ];
 
     /**
@@ -51,6 +52,7 @@ class User extends Authenticatable
         'email_verified_at',
         'created_at',
         'updated_at',
+        'is_subscribed_newsletter'
     ];
 
     /**

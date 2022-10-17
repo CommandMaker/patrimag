@@ -46,7 +46,7 @@ class SecurityController extends Controller
             return back()->with('error', 'Ce nom d\'utilisateur a été suspendu. Veuillez en choisir un autre');
         }
 
-        $credentials = $request->validate([
+        $request->validate([
             '_username' => 'required|string|max:255|min:8|unique:users,name',
             '_email' => 'required|string|email|max:255|unique:users,email',
             '_password' => 'required|string|max:255|min:8',
@@ -63,6 +63,7 @@ class SecurityController extends Controller
             'email' => $request->_email,
             'password' => Hash::make($request->_password),
             'verify_token' => static::generateActivationToken($request->_email),
+            'is_subscribed_newsletter' => $request->wants_newsletter !== null
         ]);
 
         Mail::to($user)->send(new RegisterMail($user));
@@ -154,6 +155,7 @@ class SecurityController extends Controller
             $user->update([
                 'name' => $request->username,
                 'email' => $request->email,
+                'is_subscribed_newsletter' => $request->wants_newsletter !== null
             ]);
 
             session()->put('success', 'Votre profil a bien été modifié');

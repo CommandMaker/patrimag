@@ -41,7 +41,14 @@
                         @enderror
                     </div>
                 </div>
-                
+
+                <div style="margin-bottom: 1rem">
+                    <label>
+                        <input type="checkbox" name="wants_newsletter">
+                        Voulez-vous recevoir la newsletter ?
+                    </label>
+                </div>
+
                 <div class="text-right">
                     <button type="submit" class="button" name="update">Sauvegarder</button>
                 </div>

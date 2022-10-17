@@ -66,6 +66,13 @@
                         </p>
                     @enderror
                 </div>
+                
+                <div class="field">
+                    <label>
+                        <input type="checkbox" name="wants_newsletter">
+                        Voulez-vous recevoir la newsletter ? <i>(Inclus des mails lors de la publication de nouveaux posts, ...)</i>
+                    </label>
+                </div>
 
                 <button type="submit" class="button full-width">S'inscrire</button>
             </form>
