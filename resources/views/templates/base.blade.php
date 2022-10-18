@@ -46,6 +46,10 @@
                     @endforeach
                 @endif
             @endif
+
+            @php
+                Session::forget(['success', 'error']);
+            @endphp
         </div>
     </body>
 </html>
