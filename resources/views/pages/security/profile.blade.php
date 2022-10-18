@@ -44,7 +44,7 @@
 
                 <div style="margin-bottom: 1rem">
                     <label>
-                        <input type="checkbox" name="wants_newsletter">
+                        <input type="checkbox" name="wants_newsletter" @if (auth()->user()->is_subscribed_newsletter) checked @endif>
                         Voulez-vous recevoir la newsletter ?
                     </label>
                 </div>
