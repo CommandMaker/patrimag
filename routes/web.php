@@ -1,15 +1,15 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\IndexController;
+use App\Http\Controllers\Admin\AdminArticleController;
+use App\Http\Controllers\Admin\AdminIndexController;
+use App\Http\Controllers\Admin\AdminUserController;
+use App\Http\Controllers\Api\APICommentController;
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\ContactController;
-use App\Http\Controllers\Api\APICommentController;
-use App\Http\Controllers\Admin\AdminUserController;
-use App\Http\Controllers\Admin\AdminIndexController;
-use App\Http\Controllers\Security\SecurityController;
-use App\Http\Controllers\Admin\AdminArticleController;
+use App\Http\Controllers\IndexController;
 use App\Http\Controllers\Security\PasswordResetController;
+use App\Http\Controllers\Security\SecurityController;
+use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------

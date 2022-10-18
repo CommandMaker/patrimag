@@ -8,8 +8,6 @@ use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
-use function PHPSTORM_META\type;
-
 class APICommentControllerTest extends TestCase
 {
     use RefreshDatabase;
@@ -135,12 +133,12 @@ class APICommentControllerTest extends TestCase
             ->actingAs($user)
             ->post('/api/comments/new/1', [
                 'comment_content' => 'Contenu du commentaire',
-                'parent' => 1
+                'parent' => 1,
             ]);
 
         $response->assertStatus(201);
         $response->assertJson([
-            'status' => 201
+            'status' => 201,
         ]);
 
         $this->assertCount(2, Comment::all());
@@ -157,7 +155,7 @@ class APICommentControllerTest extends TestCase
             ->actingAs($user)
             ->post('/api/comments/new/1', [
                 'comment_content' => 'Contenu du commentaire',
-                'parent' => 1
+                'parent' => 1,
             ]);
 
         $response->assertStatus(500);
@@ -177,7 +175,7 @@ class APICommentControllerTest extends TestCase
         $response = $this
             ->actingAs($user)
             ->post('/api/comments/new/1', [
-                'comment_content' => 'Contenu du commentaire'
+                'comment_content' => 'Contenu du commentaire',
             ]);
 
         $response->assertStatus(201);
@@ -189,9 +187,9 @@ class APICommentControllerTest extends TestCase
                 'content' => 'Contenu du commentaire',
                 'article_id' => 1,
                 'author_id' => 1,
-                'parent' => null
-            ]
-            ]);
+                'parent' => null,
+            ],
+        ]);
 
         $this->assertCount(1, Comment::all());
     }
@@ -204,12 +202,12 @@ class APICommentControllerTest extends TestCase
 
         $response = $this
             ->post('/api/comments/new/1', [
-                'comment_content' => 'Contenu du commentaire'
+                'comment_content' => 'Contenu du commentaire',
             ]);
 
         $response->assertStatus(401);
         $response->assertJson([
-            'status' => 401
+            'status' => 401,
         ]);
 
         $this->assertCount(0, Comment::all());
@@ -228,13 +226,13 @@ class APICommentControllerTest extends TestCase
         $response->assertStatus(500);
         $response->assertJson([
             'status' => 500,
-            'msg' => 'Fields validation error'
+            'msg' => 'Fields validation error',
         ]);
-            
+
         $this->assertCount(0, Comment::all());
     }
 
-    public function testIfDeleteComment(): void 
+    public function testIfDeleteComment(): void
     {
         /** @var User $user */
         $user = User::factory()->create();
@@ -247,7 +245,7 @@ class APICommentControllerTest extends TestCase
 
         $request->assertStatus(200);
         $request->assertJson([
-            'status' => 200
+            'status' => 200,
         ]);
 
         $this->assertCount(0, Comment::all());
@@ -260,10 +258,10 @@ class APICommentControllerTest extends TestCase
         Article::factory()->create();
         Comment::factory()->create();
         Comment::factory()->create([
-            'parent' => 1
+            'parent' => 1,
         ]);
         Comment::factory()->create([
-            'parent' => 1
+            'parent' => 1,
         ]);
 
         $response = $this
@@ -272,7 +270,7 @@ class APICommentControllerTest extends TestCase
 
         $response->assertStatus(200);
         $response->assertJson([
-            'status' => 200
+            'status' => 200,
         ]);
 
         $this->assertCount(0, Comment::all());
@@ -293,7 +291,7 @@ class APICommentControllerTest extends TestCase
 
         $response->assertStatus(403);
         $response->assertJson([
-            'status' => 403
+            'status' => 403,
         ]);
 
         $this->assertCount(1, Comment::all());

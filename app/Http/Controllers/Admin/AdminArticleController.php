@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Events\ArticleCreatedEvent;
 use App\Http\Controllers\Controller;
 use App\Models\Article;
 use Cocur\Slugify\Slugify;
@@ -43,7 +44,7 @@ class AdminArticleController extends Controller
 
         $imagePath = $request->file('image')->store('articles_image', 'public');
 
-        Article::create([
+        $article = Article::create([
             'title' => $request->title,
             'slug' => $slugify->slugify($request->title),
             'description' => $request->description,
@@ -53,6 +54,8 @@ class AdminArticleController extends Controller
             'likes' => 0,
             'dislikes' => 0,
         ]);
+
+        event(new ArticleCreatedEvent($article));
 
         return redirect()->route('admin.article.show-all')->with('success', 'L\'article a bien été créé !');
     }
