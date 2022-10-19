@@ -19,7 +19,7 @@
             <div class="bordered-card">
                 <p class="card-title">Identifiants</p>
 
-                <div class="is-flex" style="gap: 20px">
+                <div class="is-flex profile-edit-row" style="gap: 20px">
                     <div class="field">
                         <label for="username" class="label">Nom d'utilisateur :</label>
                         <div class="control">
@@ -61,7 +61,7 @@
             <div class="bordered-card">
                 <p class="card-title">Mot de passe</p>
 
-                <div class="is-flex" style="gap: 20px">
+                <div class="is-flex profile-edit-row" style="gap: 20px">
                     <div class="field">
                         <label for="actual-password" class="label">Mot de passe actuel :</label>
                         <div class="control">
